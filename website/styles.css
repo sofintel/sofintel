@@ -156,13 +156,16 @@ button { font: inherit; cursor: pointer; }
 .install-tabs .copy:hover { border-color: var(--accent); color: var(--accent); }
 .install-tabs .copy svg { width: 1rem; height: 1rem; }
 
-/* ---------- Download ---------- */
-.platform-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-.platform { border: 1px solid var(--border); border-left-width: 3px; background: var(--card); border-radius: var(--radius); padding: 1.5rem; transition: background-color .15s, box-shadow .15s; }
-.platform:hover { background: var(--secondary); box-shadow: var(--shadow-lift); }
-.platform h3 { font-size: 1.125rem; font-weight: 600; }
-.platform .detail { margin-top: 0.25rem; font-size: 0.75rem; color: var(--muted-foreground); }
-.platform .file { margin-top: 1.5rem; font-family: "Geist Mono", ui-monospace, monospace; font-size: 0.75rem; color: var(--muted-foreground); }
+/* ---------- Download (direct buttons) ---------- */
+.download-group { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.download-row { display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem; background: var(--background); }
+.download-row + .download-row { border-top: 1px solid var(--border); }
+.download-row:hover { background: var(--surface); }
+.download-label { flex: 0 0 12rem; }
+.download-label h3 { font-size: 1.125rem; font-weight: 600; }
+.download-label p { margin-top: 0.25rem; font-size: 0.75rem; color: var(--muted-foreground); }
+.download-btns { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.btn .file { font-family: "Geist Mono", ui-monospace, monospace; font-size: 0.6875rem; color: var(--muted-foreground); }
 
 /* ---------- Packages ---------- */
 .package-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
@@ -205,7 +208,8 @@ button { font: inherit; cursor: pointer; }
   .grid-why { grid-template-columns: 1fr; }
   .why-cell:nth-child(even) { border-left: 0; }
   .why-cell:nth-child(n+2) { border-top: 1px solid var(--border); }
-  .platform-grid { grid-template-columns: repeat(2, 1fr); }
+  .download-row { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  .download-label { flex: 0 0 auto; }
   .package-grid { grid-template-columns: 1fr; }
   .package-cell + .package-cell { border-left: 0; border-top: 1px solid var(--border); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -216,6 +220,7 @@ button { font: inherit; cursor: pointer; }
   .nav-links a { padding: 0.625rem 0.75rem; }
   .nav-links a.btn-download { margin-left: 0; text-align: center; }
   .nav-toggle { display: inline-flex; }
-  .platform-grid { grid-template-columns: 1fr; }
+  .download-btns { flex-direction: column; align-items: stretch; }
+  .download-btns .btn { width: 100%; }
   .footer-grid { grid-template-columns: 1fr; }
 }
