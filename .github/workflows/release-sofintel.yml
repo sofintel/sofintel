@@ -63,12 +63,35 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           key: release-macos-${{ matrix.target }}
+      - name: Fetch CEF framework
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo fetch --locked
+          cargo_home="${CARGO_HOME:-$HOME/.cargo}"
+          # cef-dll-sys downloads CEF at build time with no retry, which stalls on
+          # shared runner networks. Pre-fetch it here with retry via the upstream
+          # export-cef-dir tool, then point the build at it via CEF_PATH so the
+          # build uses the local copy instead of doing a fragile single transfer.
+          cef_rs=$(find "$cargo_home/git/checkouts" -maxdepth 2 -type d -name 'cef-rs-*' -print -quit)
+          test -n "$cef_rs"
+          # The cef-rs workspace version is e.g. 145.6.1+145.0.28; the cef-builds
+          # index keys versions by the part after '+'. Resolve it from the crate
+          # source so it never drifts from the pinned cef dependency.
+          cef_version="$(awk -F'"' '/^version = /{print $2; exit}' "$cef_rs/Cargo.toml")"
+          cef_lookup="${cef_version#*+}"
+          test -n "$cef_lookup"
+          export CEF_PATH="$HOME/cef-$$"
+          # export-cef-dir is a cef-rs workspace member, so run it from the
+          # checkout root. It downloads the CEF minimal archive with retries
+          # (cef-dll-sys itself would do it with a single fragile transfer).
+          (cd "$cef_rs" && cargo run -p export-cef-dir -- --target ${{ matrix.target }} --version "$cef_lookup" --force "$CEF_PATH")
+          echo "CEF_PATH=$CEF_PATH" >> "$GITHUB_ENV"
       - name: Apply Intel GPUI compatibility patch
         if: matrix.target == 'x86_64-apple-darwin'
         shell: bash
         run: |
           set -euo pipefail
-          cargo fetch --locked
           cargo_home="${CARGO_HOME:-$HOME/.cargo}"
           renderer=$(find "$cargo_home/git/checkouts" -path '*/crates/gpui_metal/src/renderer.rs' -print -quit)
           test -n "$renderer"
