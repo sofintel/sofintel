@@ -75,17 +75,21 @@ jobs:
           # build uses the local copy instead of doing a fragile single transfer.
           cef_rs=$(find "$cargo_home/git/checkouts" -maxdepth 2 -type d -name 'cef-rs-*' -print -quit)
           test -n "$cef_rs"
+          # The checkout root has no Cargo.toml; the workspace lives in a
+          # commit-sha subdirectory. Resolve it by locating export-cef-dir.
+          cef_ws=$(dirname "$(find "$cef_rs" -type d -name 'export-cef-dir' -print -quit)")
+          test -n "$cef_ws"
           # The cef-rs workspace version is e.g. 145.6.1+145.0.28; the cef-builds
           # index keys versions by the part after '+'. Resolve it from the crate
           # source so it never drifts from the pinned cef dependency.
-          cef_version="$(awk -F'"' '/^version = /{print $2; exit}' "$cef_rs/Cargo.toml")"
+          cef_version="$(awk -F'"' '/^version = /{print $2; exit}' "$cef_ws/Cargo.toml")"
           cef_lookup="${cef_version#*+}"
           test -n "$cef_lookup"
           export CEF_PATH="$HOME/cef-$$"
-          # export-cef-dir is a cef-rs workspace member, so run it from the
-          # checkout root. It downloads the CEF minimal archive with retries
-          # (cef-dll-sys itself would do it with a single fragile transfer).
-          (cd "$cef_rs" && cargo run -p export-cef-dir -- --target ${{ matrix.target }} --version "$cef_lookup" --force "$CEF_PATH")
+          # export-cef-dir is a cef-rs workspace member; it downloads the CEF
+          # minimal archive with retries instead of the fragile single transfer
+          # that cef-dll-sys would attempt during the build.
+          (cd "$cef_ws" && cargo run -p export-cef-dir -- --target ${{ matrix.target }} --version "$cef_lookup" --force "$CEF_PATH")
           echo "CEF_PATH=$CEF_PATH" >> "$GITHUB_ENV"
       - name: Apply Intel GPUI compatibility patch
         if: matrix.target == 'x86_64-apple-darwin'
