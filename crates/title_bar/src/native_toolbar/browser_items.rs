@@ -17,7 +17,7 @@ impl TitleBar {
         let workspace_for_end = self.workspace.clone();
 
         NativeToolbarItem::SearchField(
-            NativeToolbarSearchField::new("qedit.omnibox")
+            NativeToolbarSearchField::new("sofintel.omnibox")
                 .placeholder("Search or enter URL")
                 .text(SharedString::from(
                     self.native_toolbar_state.omnibox_text.clone(),
@@ -160,7 +160,7 @@ impl TitleBar {
     pub(crate) fn build_back_item(&self) -> NativeToolbarItem {
         let workspace = self.workspace.clone();
         self.build_simple_action_button(
-            "qedit.browser.back",
+            "sofintel.browser.back",
             "chevron.left",
             "Go Back",
             move |_window, cx| {
@@ -184,7 +184,7 @@ impl TitleBar {
     pub(crate) fn build_forward_item(&self) -> NativeToolbarItem {
         let workspace = self.workspace.clone();
         self.build_simple_action_button(
-            "qedit.browser.forward",
+            "sofintel.browser.forward",
             "chevron.right",
             "Go Forward",
             move |_window, cx| {
@@ -208,7 +208,7 @@ impl TitleBar {
     pub(crate) fn build_reload_item(&self) -> NativeToolbarItem {
         let workspace = self.workspace.clone();
         self.build_simple_action_button(
-            "qedit.browser.reload",
+            "sofintel.browser.reload",
             "arrow.clockwise",
             "Reload",
             move |_window, cx| {
@@ -232,7 +232,7 @@ impl TitleBar {
     pub(crate) fn build_downloads_item(&self) -> NativeToolbarItem {
         let workspace = self.workspace.clone();
         self.build_simple_action_button(
-            "qedit.browser.downloads",
+            "sofintel.browser.downloads",
             "arrow.down.circle",
             "Downloads",
             move |window, cx| {

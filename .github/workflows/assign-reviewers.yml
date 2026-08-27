@@ -1,10 +1,10 @@
-# Assign Reviewers — Qedit reviewer routing
+# Assign Reviewers — Sofintel reviewer routing
 #
 # Triggers on PR open and ready_for_review events. Checks out the private
 # coordinator repo to access the assignment script and rules, then assigns the
 # configured reviewers and assignees for the target repository.
 #
-# NOTE: This workflow is intentionally repo-local so each Qedit repository can
+# NOTE: This workflow is intentionally repo-local so each Sofintel repository can
 # opt into the coordinator without a separate deployment step.
 #
 # AUTH NOTE: Uses a GitHub App (COORDINATOR_APP_ID + COORDINATOR_APP_PRIVATE_KEY)
@@ -56,7 +56,7 @@ jobs:
           app-id: ${{ vars.COORDINATOR_APP_ID }}
           private-key: ${{ secrets.COORDINATOR_APP_PRIVATE_KEY }}
           owner: Glass-HQ
-          repositories: codeowner-coordinator,Qedit
+          repositories: codeowner-coordinator,Sofintel
 
       # SECURITY: checks out the coordinator repo at ref: main, NOT the PR branch.
       # persist-credentials: false prevents the token from leaking into .git/config.

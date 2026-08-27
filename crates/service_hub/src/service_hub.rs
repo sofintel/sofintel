@@ -424,7 +424,7 @@ impl ServiceProvider for AscServiceProvider {
                             label: "IPA Path".to_string(),
                             kind: ServiceInputKind::FilePath,
                             required: false,
-                            placeholder: Some("./build/Qedit.ipa".to_string()),
+                            placeholder: Some("./build/Sofintel.ipa".to_string()),
                             help: Some(
                                 "Provide an .ipa to upload. Leave blank when distributing an existing build number."
                                     .to_string(),
@@ -479,7 +479,7 @@ impl ServiceProvider for AscServiceProvider {
                             label: "IPA Path".to_string(),
                             kind: ServiceInputKind::FilePath,
                             required: true,
-                            placeholder: Some("./build/Qedit.ipa".to_string()),
+                            placeholder: Some("./build/Sofintel.ipa".to_string()),
                             help: Some("Path to the built .ipa archive to upload.".to_string()),
                         },
                         ServiceInputDescriptor {
@@ -1758,9 +1758,9 @@ mod tests {
                     ("name".to_string(), "IOSSample".to_string()),
                     (
                         "bundle_id".to_string(),
-                        "com.qedit.tests.iossample".to_string(),
+                        "com.sofintel.tests.iossample".to_string(),
                     ),
-                    ("sku".to_string(), "com.qedit.tests.iossample".to_string()),
+                    ("sku".to_string(), "com.sofintel.tests.iossample".to_string()),
                     ("platform".to_string(), "IOS".to_string()),
                     ("primary_locale".to_string(), "en-US".to_string()),
                 ]),
@@ -1772,7 +1772,7 @@ mod tests {
         assert_eq!(plan.args[1], "apps");
         assert_eq!(plan.args[2], "create");
         assert!(plan.args.contains(&"--bundle-id".to_string()));
-        assert!(plan.args.contains(&"com.qedit.tests.iossample".to_string()));
+        assert!(plan.args.contains(&"com.sofintel.tests.iossample".to_string()));
     }
 
     #[test]
@@ -1786,7 +1786,7 @@ mod tests {
                     provider_id: "app-store-connect".to_string(),
                     kind: "app".to_string(),
                     external_id: "123456789".to_string(),
-                    label: "Qedit".to_string(),
+                    label: "Sofintel".to_string(),
                 }),
                 artifact: None,
                 input: BTreeMap::from([
@@ -1819,11 +1819,11 @@ mod tests {
                     provider_id: "app-store-connect".to_string(),
                     kind: "app".to_string(),
                     external_id: "123456789".to_string(),
-                    label: "Qedit".to_string(),
+                    label: "Sofintel".to_string(),
                 }),
                 artifact: Some(ServiceArtifactRef {
                     kind: ServiceArtifactKind::Ipa,
-                    path: PathBuf::from("/tmp/Qedit.ipa"),
+                    path: PathBuf::from("/tmp/Sofintel.ipa"),
                 }),
                 input: BTreeMap::from([
                     ("version".to_string(), "1.2.3".to_string()),
@@ -1836,7 +1836,7 @@ mod tests {
         assert_eq!(plan.command, "asc");
         assert_eq!(plan.args[0], "builds");
         assert!(plan.args.contains(&"--ipa".to_string()));
-        assert!(plan.args.contains(&"/tmp/Qedit.ipa".to_string()));
+        assert!(plan.args.contains(&"/tmp/Sofintel.ipa".to_string()));
         assert!(plan.args.contains(&"--wait".to_string()));
     }
 
@@ -1851,7 +1851,7 @@ mod tests {
                     provider_id: "app-store-connect".to_string(),
                     kind: "app".to_string(),
                     external_id: "123456789".to_string(),
-                    label: "Qedit".to_string(),
+                    label: "Sofintel".to_string(),
                 }),
                 artifact: None,
                 input: BTreeMap::from([
@@ -1877,11 +1877,11 @@ mod tests {
                 provider_id: "app-store-connect".to_string(),
                 kind: "app".to_string(),
                 external_id: "123456789".to_string(),
-                label: "Qedit".to_string(),
+                label: "Sofintel".to_string(),
             }),
             artifact: Some(ServiceArtifactRef {
                 kind: ServiceArtifactKind::AppBundle,
-                path: PathBuf::from("/tmp/Qedit.app"),
+                path: PathBuf::from("/tmp/Sofintel.app"),
             }),
             input: BTreeMap::new(),
         });
@@ -1997,11 +1997,11 @@ mod tests {
                     provider_id: "app-store-connect".to_string(),
                     kind: "app".to_string(),
                     external_id: "123456789".to_string(),
-                    label: "Qedit".to_string(),
+                    label: "Sofintel".to_string(),
                 }),
                 artifact: None,
                 input: BTreeMap::from([
-                    ("ipa_path".to_string(), "/tmp/Qedit.ipa".to_string()),
+                    ("ipa_path".to_string(), "/tmp/Sofintel.ipa".to_string()),
                     ("version".to_string(), "1.2.3".to_string()),
                     ("group".to_string(), "External Testers".to_string()),
                 ]),
@@ -2026,7 +2026,7 @@ mod tests {
                     provider_id: "app-store-connect".to_string(),
                     kind: "app".to_string(),
                     external_id: "123456789".to_string(),
-                    label: "Qedit".to_string(),
+                    label: "Sofintel".to_string(),
                 }),
                 artifact: None,
                 input: BTreeMap::from([
@@ -2068,11 +2068,11 @@ mod tests {
                     provider_id: "app-store-connect".to_string(),
                     kind: "app".to_string(),
                     external_id: "123456789".to_string(),
-                    label: "Qedit".to_string(),
+                    label: "Sofintel".to_string(),
                 }),
                 artifact: None,
                 input: BTreeMap::from([
-                    ("ipa_path".to_string(), "/tmp/Qedit.ipa".to_string()),
+                    ("ipa_path".to_string(), "/tmp/Sofintel.ipa".to_string()),
                     ("version".to_string(), "1.2.3".to_string()),
                     ("submit".to_string(), "true".to_string()),
                     ("confirm".to_string(), "true".to_string()),
@@ -2112,7 +2112,7 @@ mod tests {
                     provider_id: "app-store-connect".to_string(),
                     kind: "app".to_string(),
                     external_id: "123456789".to_string(),
-                    label: "Qedit".to_string(),
+                    label: "Sofintel".to_string(),
                 }),
                 artifact: None,
                 input: BTreeMap::from([

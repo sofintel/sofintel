@@ -38,7 +38,7 @@ impl TitleBar {
         let workspace = self.workspace.clone();
         NativeToolbarItem::ControlGroup(
             NativeToolbarControlGroup::new(
-                "qedit.mode_switcher",
+                "sofintel.mode_switcher",
                 vec![
                     NativeToolbarGroupOption::new(mode_label(ModeId::BROWSER))
                         .icon(mode_sf_symbol(ModeId::BROWSER))

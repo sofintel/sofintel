@@ -410,7 +410,7 @@ impl BrowserView {
     fn push_closed_tab(&mut self, tab: &Entity<BrowserTab>, cx: &App) {
         let tab = tab.read(cx);
         let url = tab.url().to_string();
-        if url == "qedit://newtab" || url.is_empty() {
+        if url == "sofintel://newtab" || url.is_empty() {
             return;
         }
         self.closed_tabs.push(SerializedTab {

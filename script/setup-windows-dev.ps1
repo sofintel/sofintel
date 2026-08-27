@@ -81,12 +81,12 @@ Write-Host "Building companion CLI..."
 Invoke-BuildCommand -Arguments @("build", "--package", "cli", "--bin", "cli")
 
 if ($Run) {
-    Write-Host "Building Qedit..."
+    Write-Host "Building Sofintel..."
     Invoke-BuildCommand -Arguments @("build", "-p", "zed")
 
     $zedBinary = Join-Path $repoRoot "target\debug\zed.exe"
     if (-not (Test-Path $zedBinary)) {
-        throw "Expected Qedit binary not found at '$zedBinary'."
+        throw "Expected Sofintel binary not found at '$zedBinary'."
     }
 
     $cefRuntimeDirectory = & powershell -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot "stage-windows-cef-runtime.ps1")
@@ -97,10 +97,10 @@ if ($Run) {
     $env:CEF_PATH = $cefRuntimeDirectory
     Add-ToPathIfPresent -PathEntry $cefRuntimeDirectory
 
-    Write-Host "Launching Qedit..."
+    Write-Host "Launching Sofintel..."
     Start-Process -FilePath $zedBinary -WorkingDirectory $repoRoot | Out-Null
 } else {
-    Write-Host "Building Qedit..."
+    Write-Host "Building Sofintel..."
     Invoke-BuildCommand -Arguments @("build", "-p", "zed")
     Write-Host ""
     Write-Host "Environment is ready."

@@ -670,7 +670,7 @@ fn initialize_panels(
     cx: &mut Context<Workspace>,
 ) -> Task<anyhow::Result<()>> {
     fn collab_panel_debug_enabled() -> bool {
-        std::env::var_os("QEDIT_DEBUG_COLLAB_PANEL").is_some_and(|value| value != "0")
+        std::env::var_os("SOFINTEL_DEBUG_COLLAB_PANEL").is_some_and(|value| value != "0")
     }
 
     fn debug_collab_panel(message: impl AsRef<str>) {

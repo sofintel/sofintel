@@ -215,10 +215,10 @@ impl ReleaseChannel {
     /// Returns the handshake string used for single-instance coordination.
     pub fn single_instance_handshake(&self) -> &'static str {
         match self {
-            Self::Dev => "Qedit Dev Instance Running",
-            Self::Nightly => "Qedit Nightly Instance Running",
-            Self::Preview => "Qedit Preview Instance Running",
-            Self::Stable => "Qedit Stable Instance Running",
+            Self::Dev => "Sofintel Dev Instance Running",
+            Self::Nightly => "Sofintel Nightly Instance Running",
+            Self::Preview => "Sofintel Preview Instance Running",
+            Self::Stable => "Sofintel Stable Instance Running",
         }
     }
 
@@ -251,27 +251,27 @@ mod tests {
     use super::ReleaseChannel;
 
     #[test]
-    fn test_single_instance_handshake_uses_qedit_identity() {
+    fn test_single_instance_handshake_uses_sofintel_identity() {
         assert_eq!(
             ReleaseChannel::Dev.single_instance_handshake(),
-            "Qedit Dev Instance Running"
+            "Sofintel Dev Instance Running"
         );
         assert_eq!(
             ReleaseChannel::Nightly.single_instance_handshake(),
-            "Qedit Nightly Instance Running"
+            "Sofintel Nightly Instance Running"
         );
         assert_eq!(
             ReleaseChannel::Preview.single_instance_handshake(),
-            "Qedit Preview Instance Running"
+            "Sofintel Preview Instance Running"
         );
         assert_eq!(
             ReleaseChannel::Stable.single_instance_handshake(),
-            "Qedit Stable Instance Running"
+            "Sofintel Stable Instance Running"
         );
     }
 
     #[test]
-    fn test_single_instance_port_base_is_qedit_specific() {
+    fn test_single_instance_port_base_is_sofintel_specific() {
         assert_eq!(ReleaseChannel::Dev.single_instance_port_base(), 44737);
         assert_eq!(ReleaseChannel::Nightly.single_instance_port_base(), 44737);
         assert_eq!(ReleaseChannel::Preview.single_instance_port_base(), 44737);

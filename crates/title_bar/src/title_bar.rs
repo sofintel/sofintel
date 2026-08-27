@@ -70,7 +70,7 @@ const MAX_BRANCH_NAME_LENGTH: usize = 40;
 const MAX_SHORT_SHA_LENGTH: usize = 8;
 
 fn title_bar_debug_enabled() -> bool {
-    std::env::var_os("QEDIT_DEBUG_TITLE_BAR").is_some_and(|value| value != "0")
+    std::env::var_os("SOFINTEL_DEBUG_TITLE_BAR").is_some_and(|value| value != "0")
 }
 
 pub(crate) fn debug_title_bar(message: impl AsRef<str>) {

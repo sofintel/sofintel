@@ -33,7 +33,7 @@ fn account_menu_label(user_login: &str, plan: Option<Plan>) -> String {
 impl TitleBar {
     pub(crate) fn build_toolchain_item(&self, toolchain: String) -> NativeToolbarItem {
         NativeToolbarItem::Button(
-            NativeToolbarButton::new("qedit.status.toolchain", toolchain)
+            NativeToolbarButton::new("sofintel.status.toolchain", toolchain)
                 .tool_tip("Select Toolchain")
                 .on_click(|_, window, cx| {
                     window.dispatch_action(toolchain_selector::Select.boxed_clone(), cx);
@@ -43,7 +43,7 @@ impl TitleBar {
 
     pub(crate) fn build_encoding_item(&self, encoding: String) -> NativeToolbarItem {
         NativeToolbarItem::Button(
-            NativeToolbarButton::new("qedit.status.encoding", encoding)
+            NativeToolbarButton::new("sofintel.status.encoding", encoding)
                 .tool_tip("Reopen with Encoding")
                 .on_click(|_, window, cx| {
                     window.dispatch_action(ToggleEncoding.boxed_clone(), cx);
@@ -53,7 +53,7 @@ impl TitleBar {
 
     pub(crate) fn build_line_ending_item(&self, line_ending: String) -> NativeToolbarItem {
         NativeToolbarItem::Button(
-            NativeToolbarButton::new("qedit.status.line_ending", line_ending)
+            NativeToolbarButton::new("sofintel.status.line_ending", line_ending)
                 .tool_tip("Select Line Ending")
                 .on_click(|_, window, cx| {
                     window.dispatch_action(line_ending_selector::Toggle.boxed_clone(), cx);
@@ -63,7 +63,7 @@ impl TitleBar {
 
     pub(crate) fn build_image_info_item(&self, image_info: String) -> NativeToolbarItem {
         NativeToolbarItem::Label(NativeToolbarLabel::new(
-            "qedit.status.image_info",
+            "sofintel.status.image_info",
             image_info,
         ))
     }
@@ -72,7 +72,7 @@ impl TitleBar {
         let client = self.client.clone();
         let workspace = self.workspace.clone();
         NativeToolbarItem::Button(
-            NativeToolbarButton::new("qedit.sign_in", "Sign In")
+            NativeToolbarButton::new("sofintel.sign_in", "Sign In")
                 .tool_tip("Sign In")
                 .icon("person.crop.circle.badge.plus")
                 .on_click(move |_, window, cx| {
@@ -129,7 +129,7 @@ impl TitleBar {
         }
 
         let mut menu_button =
-            NativeToolbarMenuButton::new("qedit.user_menu", "Account", menu_items)
+            NativeToolbarMenuButton::new("sofintel.user_menu", "Account", menu_items)
                 .tool_tip("User Menu")
                 .shows_indicator(false);
         if TitleBarSettings::get_global(cx).show_user_picture

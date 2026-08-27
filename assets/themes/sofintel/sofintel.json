@@ -1,10 +1,10 @@
 {
   "$schema": "https://zed.dev/schema/themes/v0.2.0.json",
-  "name": "Qedit",
-  "author": "Qedit HQ",
+  "name": "Sofintel",
+  "author": "Sofintel HQ",
   "themes": [
     {
-      "name": "Qedit Dark",
+      "name": "Sofintel Dark",
       "appearance": "dark",
       "style": {
         "component_radius": {
@@ -163,7 +163,7 @@
       }
     },
     {
-      "name": "Qedit Light",
+      "name": "Sofintel Light",
       "appearance": "light",
       "style": {
         "component_radius": {
@@ -303,7 +303,7 @@
       }
     },
     {
-      "name": "Qedit Dark Blur",
+      "name": "Sofintel Dark Blur",
       "appearance": "dark",
       "style": {
         "component_radius": {
@@ -462,7 +462,7 @@
       }
     },
     {
-      "name": "Qedit Light Blur",
+      "name": "Sofintel Light Blur",
       "appearance": "light",
       "style": {
         "component_radius": {

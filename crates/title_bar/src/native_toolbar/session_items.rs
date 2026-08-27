@@ -11,12 +11,12 @@ impl TitleBar {
             | ClientStatus::Reauthenticating
             | ClientStatus::Reconnecting
             | ClientStatus::ReconnectionError { .. } => Some(NativeToolbarItem::Button(
-                NativeToolbarButton::new("qedit.connection_status", "Disconnected")
+                NativeToolbarButton::new("sofintel.connection_status", "Disconnected")
                     .tool_tip("Disconnected")
                     .icon("wifi.exclamationmark"),
             )),
             ClientStatus::UpgradeRequired => Some(NativeToolbarItem::Button(
-                NativeToolbarButton::new("qedit.connection_status", "Update Required")
+                NativeToolbarButton::new("sofintel.connection_status", "Update Required")
                     .tool_tip("Please Update to Collaborate")
                     .icon("exclamationmark.arrow.circlepath")
                     .on_click(|_, window, cx| {
@@ -29,7 +29,7 @@ impl TitleBar {
 
     pub(crate) fn build_update_item(&self) -> NativeToolbarItem {
         self.build_simple_action_button(
-            "qedit.update",
+            "sofintel.update",
             "arrow.down.circle",
             "Restart to Update",
             |_window, cx| {

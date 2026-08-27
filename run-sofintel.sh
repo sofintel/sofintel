@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Run Qedit with CEF support
-# This script builds and runs Qedit from the bundled .app to ensure CEF works correctly
+# Run Sofintel with CEF support
+# This script builds and runs Sofintel from the bundled .app to ensure CEF works correctly
 
 set -euo pipefail
 
@@ -23,7 +23,7 @@ else
     export CARGO_INCREMENTAL=true
 fi
 
-APP_PATH="target/${target_triple}/${TARGET_DIR}/bundle/Qedit.app"
+APP_PATH="target/${target_triple}/${TARGET_DIR}/bundle/Sofintel.app"
 
 # Check if we need to rebuild/rebundle
 NEEDS_BUNDLE=false
@@ -35,7 +35,7 @@ elif [[ ! -d "$APP_PATH/Contents/Frameworks/Chromium Embedded Framework.framewor
 fi
 
 if [[ "$NEEDS_BUNDLE" == "true" ]]; then
-    echo "Building and bundling Qedit with CEF..."
+    echo "Building and bundling Sofintel with CEF..."
     ./script/bundle-mac-cef "$BUILD_TYPE"
 fi
 
@@ -43,5 +43,5 @@ fi
 export ZED_COPY_REMOTE_SERVER="$PWD/target/${target_triple}/${TARGET_DIR}/remote_server.gz"
 
 # Run the bundled app
-echo "Running Qedit from: $APP_PATH"
-exec "$APP_PATH/Contents/MacOS/Qedit" "$@"
+echo "Running Sofintel from: $APP_PATH"
+exec "$APP_PATH/Contents/MacOS/Sofintel" "$@"

@@ -1,4 +1,4 @@
-# Labels pull requests for lightweight Qedit contributor routing.
+# Labels pull requests for lightweight Sofintel contributor routing.
 name: PR Labeler
 
 on:

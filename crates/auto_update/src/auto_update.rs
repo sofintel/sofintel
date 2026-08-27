@@ -11,7 +11,7 @@ use paths::remote_servers_dir;
 use release_channel::{AppCommitSha, ReleaseChannel};
 use semver::Version;
 use serde::{Deserialize, Serialize};
-// QEDIT: SettingsStore is unused while auto-updates are disabled, but preserved for re-enabling later
+// SOFINTEL: SettingsStore is unused while auto-updates are disabled, but preserved for re-enabling later
 #[allow(unused_imports)]
 use settings::{RegisterSetting, Settings, SettingsStore};
 use smol::fs::File;
@@ -208,7 +208,7 @@ impl Drop for MacOsUnmounter<'_> {
     }
 }
 
-// QEDIT: Field is unused while auto-updates are disabled, but preserved for re-enabling later
+// SOFINTEL: Field is unused while auto-updates are disabled, but preserved for re-enabling later
 #[allow(dead_code)]
 #[derive(Clone, Copy, Debug, RegisterSetting)]
 struct AutoUpdateSetting(bool);
@@ -241,10 +241,10 @@ pub fn init(client: Arc<Client>, cx: &mut App) {
     let auto_updater = cx.new(|cx| {
         let updater = AutoUpdater::new(version, client, cx);
 
-        // QEDIT: Auto-update polling is disabled for now.
+        // SOFINTEL: Auto-update polling is disabled for now.
         // The original Zed auto-update points to api.zed.dev which would overwrite
-        // Qedit with official Zed builds. To re-enable auto-updates, uncomment
-        // the block below and point it to Qedit's own update server or GitHub releases.
+        // Sofintel with official Zed builds. To re-enable auto-updates, uncomment
+        // the block below and point it to Sofintel's own update server or GitHub releases.
         //
         // let poll_for_updates = ReleaseChannel::try_global(cx)
         //     .map(|channel| channel.poll_for_updates())
@@ -276,18 +276,18 @@ pub fn init(client: Arc<Client>, cx: &mut App) {
 }
 
 pub fn check(_: &Check, window: &mut Window, cx: &mut App) {
-    // QEDIT: Auto-updates are disabled. Show a message directing users to GitHub releases.
+    // SOFINTEL: Auto-updates are disabled. Show a message directing users to GitHub releases.
     // To re-enable auto-updates, remove this block and uncomment the original code below.
     drop(window.prompt(
         gpui::PromptLevel::Info,
         "Auto-updates are not yet available",
-        Some("Please check https://github.com/musichen/qedit/releases for new versions."),
+        Some("Please check https://github.com/musichen/sofintel/releases for new versions."),
         &["Ok"],
         cx,
     ));
     return;
 
-    // QEDIT: Original auto-update check code (commented out for now)
+    // SOFINTEL: Original auto-update check code (commented out for now)
     //
     // if let Some(message) = option_env!("ZED_UPDATE_EXPLANATION") {
     //     drop(window.prompt(

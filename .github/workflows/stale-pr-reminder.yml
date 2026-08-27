@@ -90,7 +90,7 @@ jobs:
                   type: "section",
                   text: {
                     type: "mrkdwn",
-                    text: (":hourqedit_flowing_sand: *" + $count + " PR(s) Awaiting Review >72 Hours*")
+                    text: (":hoursofintel_flowing_sand: *" + $count + " PR(s) Awaiting Review >72 Hours*")
                   }
                 },
                 {

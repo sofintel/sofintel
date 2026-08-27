@@ -1,7 +1,7 @@
-//! Browser Mode for Qedit
+//! Browser Mode for Sofintel
 //!
 //! This crate provides the browser mode functionality, integrating
-//! Chromium Embedded Framework (CEF) for a full browser experience within Qedit.
+//! Chromium Embedded Framework (CEF) for a full browser experience within Sofintel.
 
 mod bookmarks;
 mod browser_view;
@@ -38,8 +38,9 @@ pub use cef_instance::CefInstance;
 pub use cef_instance::build_cef_app;
 pub use tab::BrowserTab;
 
-/// Handle CEF subprocess execution. This MUST be called very early in main(),
-/// before any GUI initialization. See CefInstance::handle_subprocess() for details.
+/// Handle CEF subprocess execution for platforms where subprocesses re-launch
+/// the main executable. Must run before any GUI initialization.
+/// See CefInstance::handle_subprocess() for details.
 pub fn handle_cef_subprocess() -> anyhow::Result<()> {
     CefInstance::handle_subprocess()
 }
@@ -181,7 +182,7 @@ fn attach_browser_toolbars_to_workspace(
 
 pub fn init(cx: &mut App) {
     // CEF initializes only when the user explicitly enables Browser. Besides
-    // avoiding its startup cost for editor-only sessions, this lets Qedit
+    // avoiding its startup cost for editor-only sessions, this lets Sofintel
     // explain the macOS Keychain request before Chromium presents it.
     std::mem::forget(cx.on_app_quit(|_| async {
         CefInstance::shutdown();

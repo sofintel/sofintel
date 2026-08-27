@@ -1327,7 +1327,7 @@ impl Item for BrowserView {
         let title = tab.title().trim();
         if !title.is_empty() && title != "New Tab" {
             SharedString::from(title.to_string())
-        } else if tab.url().is_empty() || tab.url() == "qedit://newtab" {
+        } else if tab.url().is_empty() || tab.url() == "sofintel://newtab" {
             SharedString::from("New Tab")
         } else {
             SharedString::from(tab.url().to_string())

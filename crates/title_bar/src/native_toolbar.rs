@@ -178,8 +178,8 @@ impl TitleBar {
         }
         self.native_toolbar_state.last_toolbar_key = toolbar_key;
 
-        let mut toolbar = NativeToolbar::new("qedit.main.toolbar")
-            .title("Qedit")
+        let mut toolbar = NativeToolbar::new("sofintel.main.toolbar")
+            .title("Sofintel")
             .display_mode(NativeToolbarDisplayMode::IconOnly)
             .size_mode(NativeToolbarSizeMode::Regular)
             .shows_baseline_separator(false)
@@ -189,13 +189,13 @@ impl TitleBar {
             //
             // We use a custom button (not NativeToolbarItem::SidebarToggle) because
             // NSToolbarToggleSidebarItemIdentifier tracks sidebar state via the responder
-            // chain to NSSplitViewController. Qedit opts out of manage_window_chrome, so the
+            // chain to NSSplitViewController. Sofintel opts out of manage_window_chrome, so the
             // split view is a subview — not contentViewController — and AppKit can't find it
             // after the first collapse, permanently breaking the button's visual state.
             // A custom button with a stable SF Symbol has consistent appearance always.
             .item(NativeToolbarItem::FlexibleSpace)
             .item(self.build_simple_action_button(
-                "qedit.sidebar.toggle",
+                "sofintel.sidebar.toggle",
                 "sidebar.left",
                 "Toggle Sidebar",
                 |window, cx| window.dispatch_action(ToggleSidebar.boxed_clone(), cx),
@@ -250,7 +250,7 @@ impl TitleBar {
                 (project.is_local() || project.is_via_remote_server()) && project.is_shared();
 
             toolbar = toolbar.item(self.build_simple_action_button(
-                "qedit.call.leave",
+                "sofintel.call.leave",
                 "phone.down",
                 "Leave Call",
                 |window, cx| window.dispatch_action(LeaveCall.boxed_clone(), cx),
@@ -258,7 +258,7 @@ impl TitleBar {
 
             if can_share_projects {
                 toolbar = toolbar.item(self.build_simple_action_button(
-                    "qedit.call.share_project",
+                    "sofintel.call.share_project",
                     if is_shared {
                         "person.2.slash"
                     } else {
@@ -275,7 +275,7 @@ impl TitleBar {
 
             if can_use_microphone {
                 toolbar = toolbar.item(self.build_simple_action_button(
-                    "qedit.call.mute",
+                    "sofintel.call.mute",
                     if is_muted { "mic.slash" } else { "mic" },
                     if is_muted {
                         "Unmute Microphone"
@@ -287,7 +287,7 @@ impl TitleBar {
             }
 
             toolbar = toolbar.item(self.build_simple_action_button(
-                "qedit.call.deafen",
+                "sofintel.call.deafen",
                 if is_deafened {
                     "speaker.slash"
                 } else {
@@ -303,7 +303,7 @@ impl TitleBar {
 
             if can_use_microphone && cx.is_screen_capture_supported() {
                 toolbar = toolbar.item(self.build_simple_action_button(
-                    "qedit.call.screen_share",
+                    "sofintel.call.screen_share",
                     if is_screen_sharing {
                         "rectangle.on.rectangle.slash"
                     } else {
@@ -343,7 +343,7 @@ impl TitleBar {
         toolbar = toolbar
             .item(NativeToolbarItem::Space)
             .item(self.build_simple_action_button(
-                "qedit.right_dock.toggle",
+                "sofintel.right_dock.toggle",
                 "sidebar.right",
                 "Toggle Right Dock",
                 |window, cx| window.dispatch_action(ToggleRightDock.boxed_clone(), cx),

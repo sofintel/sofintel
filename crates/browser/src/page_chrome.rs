@@ -11,8 +11,8 @@ use serde::Deserialize;
 
 use crate::text_input::send_text_input_state;
 
-pub(crate) const PAGE_CHROME_MESSAGE_NAME: &str = "qedit.page_chrome";
-const PAGE_CHROME_BRIDGE_NAME: &str = "__qeditReportChromeColor";
+pub(crate) const PAGE_CHROME_MESSAGE_NAME: &str = "sofintel.page_chrome";
+const PAGE_CHROME_BRIDGE_NAME: &str = "__sofintelReportChromeColor";
 
 // Failure modes:
 // - The top edge may be transparent because the page paints with gradients, images, or video.
@@ -27,10 +27,10 @@ const PAGE_CHROME_BRIDGE_NAME: &str = "__qeditReportChromeColor";
 // - Let the browser process clear the stored color on navigation boundaries.
 const PAGE_CHROME_OBSERVER_SCRIPT: &str = r#"
 (function () {
-  if (window.__qeditChromeSyncInstalled) return;
-  window.__qeditChromeSyncInstalled = true;
+  if (window.__sofintelChromeSyncInstalled) return;
+  window.__sofintelChromeSyncInstalled = true;
 
-  const bridge = window.__qeditReportChromeColor;
+  const bridge = window.__sofintelReportChromeColor;
   if (typeof bridge !== 'function') return;
 
   let lastPayload = null;
@@ -442,7 +442,7 @@ wrap_render_process_handler! {
             let mut eval_exception = None::<cef::V8Exception>;
             if context.eval(
                 Some(&CefString::from(PAGE_CHROME_OBSERVER_SCRIPT)),
-                Some(&CefString::from("qedit://page_chrome.js")),
+                Some(&CefString::from("sofintel://page_chrome.js")),
                 0,
                 Some(&mut result),
                 Some(&mut eval_exception),

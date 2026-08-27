@@ -16,7 +16,7 @@ const SEND_TIMEOUT: Duration = Duration::from_millis(20);
 const USER_BLOCK: u16 = 100;
 
 fn address() -> SocketAddr {
-    // Offset the base port by release channel and user ID so different Qedit
+    // Offset the base port by release channel and user ID so different Sofintel
     // variants and OS users do not contend for the same localhost port.
     let release_channel = *release_channel::RELEASE_CHANNEL;
     let port = match release_channel {

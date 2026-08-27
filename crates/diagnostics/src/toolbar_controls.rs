@@ -57,7 +57,7 @@ impl Render for ToolbarControls {
         h_flex()
             .gap_1()
             .child(
-                native_icon_button("toggle_search", "magnifyingqedit")
+                native_icon_button("toggle_search", "magnifyingsofintel")
                     .tooltip("Buffer Search")
                     .on_click(|_, window, cx| {
                         window.dispatch_action(Box::new(buffer_search::Deploy::find()), cx);

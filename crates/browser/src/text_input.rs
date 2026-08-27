@@ -4,7 +4,7 @@ use cef::{
 };
 use gpui::Keystroke;
 
-pub(crate) const TEXT_INPUT_STATE_MESSAGE_NAME: &str = "qedit.text_input_state";
+pub(crate) const TEXT_INPUT_STATE_MESSAGE_NAME: &str = "sofintel.text_input_state";
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub(crate) struct BrowserTextInputState {

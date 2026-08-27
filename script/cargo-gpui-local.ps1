@@ -11,11 +11,11 @@ if (-not $CargoArgs -or $CargoArgs.Count -eq 0) {
 }
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
-$gpuiRoot = if ($env:QEDIT_GPUI_PATH) { $env:QEDIT_GPUI_PATH } else { Join-Path (Split-Path $repoRoot -Parent) "gpui" }
+$gpuiRoot = if ($env:SOFINTEL_GPUI_PATH) { $env:SOFINTEL_GPUI_PATH } else { Join-Path (Split-Path $repoRoot -Parent) "gpui" }
 $lockFile = Join-Path $repoRoot "Cargo.lock"
 
 if (-not (Test-Path (Join-Path $gpuiRoot "crates\gpui\Cargo.toml"))) {
-    throw "Local GPUI checkout not found at '$gpuiRoot'. Set QEDIT_GPUI_PATH or clone Glass-HQ/gpui next to the Qedit checkout."
+    throw "Local GPUI checkout not found at '$gpuiRoot'. Set SOFINTEL_GPUI_PATH or clone Glass-HQ/gpui next to the Sofintel checkout."
 }
 
 $gpuiRootNormalized = $gpuiRoot.Replace("\", "/")
@@ -51,7 +51,7 @@ util = { path = "$gpuiRootNormalized/crates/util" }
 
     Set-Location $repoRoot
     $cargoInvocationArgs = @("--config", $configFile)
-    if (-not $env:QEDIT_CARGO_VERBOSE) {
+    if (-not $env:SOFINTEL_CARGO_VERBOSE) {
         $cargoInvocationArgs += "--quiet"
     }
     $cargoInvocationArgs += $CargoArgs

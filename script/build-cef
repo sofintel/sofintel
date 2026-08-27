@@ -18,7 +18,7 @@
 #   script/build-cef [--branch BRANCH] [--build-dir DIR] [--output-dir DIR]
 #
 # The resulting minimal distribution archive is placed in OUTPUT_DIR.
-# Set CEF_PATH to the extracted archive location when building Qedit:
+# Set CEF_PATH to the extracted archive location when building Sofintel:
 #   export CEF_PATH="$HOME/.local/share/cef-custom"
 #   cargo build -p browser
 
@@ -171,7 +171,7 @@ echo ""
 echo "=== Output ==="
 echo "  Archive: $OUTPUT_DIR/$ARCHIVE_NAME"
 echo ""
-echo "To use this build with Qedit:"
+echo "To use this build with Sofintel:"
 echo ""
 echo "  # Extract the archive"
 echo "  mkdir -p ~/.local/share/cef-custom"
@@ -187,6 +187,6 @@ echo "  cp -R /tmp/\$EXTRACTED/include ~/.local/share/cef-custom/"
 echo "  cp -R /tmp/\$EXTRACTED/libcef_dll ~/.local/share/cef-custom/"
 echo "  echo '{\"type\":\"minimal\",\"name\":\"$ARCHIVE_NAME\",\"sha1\":\"custom\"}' > ~/.local/share/cef-custom/archive.json"
 echo ""
-echo "  # Build Qedit with the custom CEF"
+echo "  # Build Sofintel with the custom CEF"
 echo "  export CEF_PATH=\"\$HOME/.local/share/cef-custom\""
 echo "  cargo build -p browser"

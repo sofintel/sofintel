@@ -143,7 +143,7 @@ fn run_apple_simulator_plan(
     simulator_id: &str,
 ) -> ExecutionPlan {
     let derived_data_path = workspace_root
-        .join(".qedit")
+        .join(".sofintel")
         .join("app_runtime")
         .join(target.replace('/', "-"));
     let derived_data = derived_data_path.to_string_lossy();
@@ -162,7 +162,7 @@ fn run_apple_simulator_plan(
             {selector} -scheme {target} -destination id={simulator_id} -derivedDataPath {derived_data} build\n\
             app_path=\"$(find {derived_data}/Build/Products -maxdepth 2 -name '*.app' -print -quit)\"\n\
             if [ -z \"$app_path\" ]; then\n\
-              echo 'Qedit could not find the built .app bundle.' >&2\n\
+              echo 'Sofintel could not find the built .app bundle.' >&2\n\
               exit 1\n\
             fi\n\
             bundle_id=\"$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' \"$app_path/Info.plist\")\"\n\
@@ -187,7 +187,7 @@ fn run_apple_desktop_plan(
     target: &str,
 ) -> ExecutionPlan {
     let derived_data_path = workspace_root
-        .join(".qedit")
+        .join(".sofintel")
         .join("app_runtime")
         .join(target.replace('/', "-"));
     let derived_data = derived_data_path.to_string_lossy();
@@ -206,7 +206,7 @@ fn run_apple_desktop_plan(
                 {selector} -scheme {target} -destination 'platform=macOS' -derivedDataPath {derived_data} build\n\
                 app_path=\"$(find {derived_data}/Build/Products -maxdepth 2 -name '*.app' -print -quit)\"\n\
                 if [ -z \"$app_path\" ]; then\n\
-                  echo 'Qedit could not find the built .app bundle.' >&2\n\
+                  echo 'Sofintel could not find the built .app bundle.' >&2\n\
                   exit 1\n\
                 fi\n\
                 open -n \"$app_path\"\n",

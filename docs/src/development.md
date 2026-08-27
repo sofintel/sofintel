@@ -1,10 +1,10 @@
-title: Developing Qedit
-description: "Guide to building and developing Qedit from source."
+title: Developing Sofintel
+description: "Guide to building and developing Sofintel from source."
 ---
 
-# Developing Qedit
+# Developing Sofintel
 
-See the platform-specific instructions for building Qedit from source:
+See the platform-specific instructions for building Sofintel from source:
 
 - [macOS](./development/macos.md)
 - [Linux](./development/linux.md)
@@ -12,9 +12,9 @@ See the platform-specific instructions for building Qedit from source:
 
 ## Keychain access
 
-Qedit stores secrets in the system keychain.
+Sofintel stores secrets in the system keychain.
 
-However, when running a development build of Qedit on macOS (and perhaps other
+However, when running a development build of Sofintel on macOS (and perhaps other
 platforms) trying to access the keychain results in a lot of keychain prompts
 that require entering your password over and over.
 
@@ -24,14 +24,14 @@ your password again the next time something changes in the binary.
 
 This quickly becomes annoying and impedes development speed.
 
-That is why, by default, when running a development build of Qedit an alternative
+That is why, by default, when running a development build of Sofintel an alternative
 credential provider is used to bypass the system keychain.
 
 > **Note:** This is **only** the case for development builds. For all non-development
 > release channels the system keychain is always used.
 
 If you need to test something out using the real system keychain in a
-development build, run Qedit with the following environment variable set:
+development build, run Sofintel with the following environment variable set:
 
 ```
 ZED_DEVELOPMENT_USE_KEYCHAIN=1
@@ -39,7 +39,7 @@ ZED_DEVELOPMENT_USE_KEYCHAIN=1
 
 ## Performance Measurements
 
-Qedit includes a frame time measurement system that can be used to profile how long it takes to render each frame. This is particularly useful when comparing rendering performance between different versions or when optimizing frame rendering code.
+Sofintel includes a frame time measurement system that can be used to profile how long it takes to render each frame. This is particularly useful when comparing rendering performance between different versions or when optimizing frame rendering code.
 
 ### Using ZED_MEASUREMENTS
 
@@ -49,7 +49,7 @@ To enable performance measurements, set the `ZED_MEASUREMENTS` environment varia
 export ZED_MEASUREMENTS=1
 ```
 
-When enabled, Qedit will print frame rendering timing information to stderr, showing how long each frame takes to render.
+When enabled, Sofintel will print frame rendering timing information to stderr, showing how long each frame takes to render.
 
 ### Performance Comparison Workflow
 
@@ -64,12 +64,12 @@ Here's a typical workflow for comparing frame rendering performance between diff
 2. **Test the first version:**
 
    - Checkout the commit you want to measure
-   - Run Qedit in release mode and use it for 5-10 seconds: `cargo run --release &> version-a`
+   - Run Sofintel in release mode and use it for 5-10 seconds: `cargo run --release &> version-a`
 
 3. **Test the second version:**
 
    - Checkout another commit you want to compare
-   - Run Qedit in release mode and use it for 5-10 seconds: `cargo run --release &> version-b`
+   - Run Sofintel in release mode and use it for 5-10 seconds: `cargo run --release &> version-b`
 
 4. **Generate comparison:**
 

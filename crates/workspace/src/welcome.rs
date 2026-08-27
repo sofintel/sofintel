@@ -411,9 +411,9 @@ impl Render for WelcomePage {
         };
 
         let welcome_label = if self.fallback_to_recent_projects {
-            "Welcome back to Qedit"
+            "Welcome back to Sofintel"
         } else {
-            "Welcome to Qedit"
+            "Welcome to Sofintel"
         };
 
         h_flex()
@@ -449,9 +449,9 @@ impl Render for WelcomePage {
                                     .child({
                                         let logo = match cx.theme().appearance {
                                             theme::Appearance::Light => {
-                                                "images/qedit_logo_light.png"
+                                                "images/sofintel_logo_light.png"
                                             }
-                                            theme::Appearance::Dark => "images/qedit_logo_dark.png",
+                                            theme::Appearance::Dark => "images/sofintel_logo_dark.png",
                                         };
                                         gpui::img(logo).w(rems_from_px(45.)).h(rems_from_px(45.))
                                     })

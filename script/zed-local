@@ -171,7 +171,7 @@ if (isReleaseMode) {
 }
 
 const buildCommand =
-  process.env.QEDIT_GPUI_PATH || process.env.QEDIT_USE_LOCAL_GPUI === "1"
+  process.env.SOFINTEL_GPUI_PATH || process.env.SOFINTEL_USE_LOCAL_GPUI === "1"
     ? `${__dirname}/cargo-gpui-local`
     : "cargo";
 

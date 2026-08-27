@@ -21,7 +21,7 @@ impl BrowserView {
         }
 
         window.focus_native_search_field(
-            NativeSearchFieldTarget::ToolbarItem("qedit.omnibox".into()),
+            NativeSearchFieldTarget::ToolbarItem("sofintel.omnibox".into()),
             true,
         );
 

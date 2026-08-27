@@ -31,7 +31,7 @@ pub struct InputField {
     editor: Arc<dyn ErasedEditor>,
     /// An optional icon that is displayed at the start of the text field.
     ///
-    /// For example, a magnifying qedit icon in a search field.
+    /// For example, a magnifying sofintel icon in a search field.
     start_icon: Option<IconName>,
     /// The minimum width of for the input
     min_width: Length,

@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+# Regenerate every Sofintel icon asset from the transparent master artwork.
+# Run after replacing sofintel-icon.png so no platform keeps a stale icon.
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+master="${1:-sofintel-icon.png}"
+test -f "$master"
+
+# Alpha must survive every derivative, otherwise macOS and Windows render the
+# artwork on an opaque plate instead of the system-provided background.
+alpha=$(magick identify -format '%A' "$master")
+test "$alpha" != "Undefined"
+
+resize() {
+  local size="$1" output="$2"
+  magick "$master" -background none -filter Lanczos -resize "${size}x${size}" \
+    -gravity center -extent "${size}x${size}" -define png:color-type=6 "$output"
+}
+
+# macOS bundle icon: iconutil requires every representation present.
+iconset=$(mktemp -d)/Sofintel.iconset
+mkdir -p "$iconset"
+for size in 16 32 128 256 512; do
+  resize "$size" "$iconset/icon_${size}x${size}.png"
+  resize "$((size * 2))" "$iconset/icon_${size}x${size}@2x.png"
+done
+iconutil -c icns "$iconset" -o crates/zed/resources/Sofintel.icns
+rm -rf "${iconset%/Sofintel.iconset}"
+
+# macOS release-channel icons consumed by the bundling scripts.
+for channel in "" "-dev" "-preview" "-nightly"; do
+  resize 512 "crates/zed/resources/app-icon${channel}.png"
+  resize 1024 "crates/zed/resources/app-icon${channel}@2x.png"
+done
+# Upstream only ships a 2x nightly icon; keep that layout.
+rm -f crates/zed/resources/app-icon-nightly.png
+
+# Windows icons need every shell size embedded in one .ico.
+windows_sizes=(16 24 32 48 64 128 256)
+windows_stage=$(mktemp -d)
+windows_layers=()
+for size in "${windows_sizes[@]}"; do
+  resize "$size" "$windows_stage/icon-$size.png"
+  windows_layers+=("$windows_stage/icon-$size.png")
+done
+for channel in "" "-dev" "-preview" "-nightly"; do
+  magick "${windows_layers[@]}" "crates/zed/resources/windows/app-icon${channel}.ico"
+done
+rm -rf "$windows_stage"
+
+# Linux packaging, website, docs, and in-app brand images.
+resize 512 icon.png
+resize 512 website/icon.png
+resize 512 docs/theme/favicon.png
+resize 512 assets/images/sofintel_logo.png
+resize 1024 assets/images/sofintel_logo_light.png
+resize 1024 assets/images/sofintel_logo_dark.png
+resize 512 assets/images/sofintel-icon.png
+
+printf 'regenerated icons from %s\n' "$master"

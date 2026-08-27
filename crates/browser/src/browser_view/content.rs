@@ -47,7 +47,7 @@ impl BrowserView {
                             .max_w(px(460.))
                             .text_center()
                             .child(
-                                "Qedit uses an embedded Chromium browser for web pages. When you continue, macOS may ask to create or use the Chromium Safe Storage keychain item. It only encrypts browser-profile data such as website sessions and tokens. Qedit cannot read your general Keychain.",
+                                "Sofintel embeds a Chromium browser. On your first use, macOS will ask to create a Chromium Safe Storage keychain item. This is standard Chromium (CEF) behavior: it generates and securely stores a random \"browser identity\" hash that lets Chromium keep your browsing session and saved logins private. It is not a password, it does not read your existing Keychain, and Sofintel never sees it. You will only be asked once.",
                             ),
                     )
                     .child(
@@ -64,6 +64,14 @@ impl BrowserView {
                                 this.enable_browser(cx);
                             }))
                             .child("Continue and enable Browser"),
+                    )
+                    .child(
+                        div()
+                            .text_color(theme.colors().text_muted)
+                            .text_size(rems(0.75))
+                            .max_w(px(460.))
+                            .text_center()
+                            .child("This only happens because of how the embedded Chromium engine works. Sofintel does not read or store your passwords."),
                     )
                     .when_some(self.cef_initialization_error.as_ref(), |this, error| {
                         this.child(

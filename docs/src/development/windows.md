@@ -1,27 +1,27 @@
 ---
-title: Building Qedit for Windows
-description: "Guide to building Qedit for Windows development."
+title: Building Sofintel for Windows
+description: "Guide to building Sofintel for Windows development."
 ---
 
-# Building Qedit for Windows
+# Building Sofintel for Windows
 
 > The commands below can be run from PowerShell or Windows Terminal.
 
 ## Repository
 
-Clone the [Qedit repository](https://github.com/musichen/qedit).
+Clone the [Sofintel repository](https://github.com/musichen/sofintel).
 
-If you are developing Qedit together with a local GPUI checkout, clone [Glass-HQ/gpui](https://github.com/Glass-HQ/gpui) as a sibling repository:
+If you are developing Sofintel together with a local GPUI checkout, clone [Glass-HQ/gpui](https://github.com/Glass-HQ/gpui) as a sibling repository:
 
 ```powershell
-git clone https://github.com/musichen/qedit.git
+git clone https://github.com/musichen/sofintel.git
 git clone https://github.com/Glass-HQ/gpui.git
 ```
 
 This yields:
 
 ```text
-C:\src\musichen\qedit
+C:\src\musichen\sofintel
 C:\src\Glass-HQ\gpui
 ```
 
@@ -35,11 +35,11 @@ Install:
 - [CMake](https://cmake.org/download)
 - `ninja`
 
-If you install only Build Tools, launch Qedit from a developer shell so MSVC and SDK environment variables are available.
+If you install only Build Tools, launch Sofintel from a developer shell so MSVC and SDK environment variables are available.
 
 ## Recommended bootstrap
 
-Qedit includes a Windows bootstrap script that verifies the machine, installs `ninja` with `winget` when needed, stages the CEF runtime into a stable dev directory, builds the companion CLI, and launches the app.
+Sofintel includes a Windows bootstrap script that verifies the machine, installs `ninja` with `winget` when needed, stages the CEF runtime into a stable dev directory, builds the companion CLI, and launches the app.
 
 From the repo root:
 
@@ -47,7 +47,7 @@ From the repo root:
 powershell -ExecutionPolicy Bypass -File .\script\setup-windows-dev.ps1
 ```
 
-To build and launch Qedit in one step:
+To build and launch Sofintel in one step:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\script\setup-windows-dev.ps1 -Run
@@ -62,7 +62,7 @@ What the script does:
 - uses a sibling `..\gpui` checkout automatically when one is present
 - stages the Windows CEF runtime next to the development build so `zed.exe` can be launched directly
   - this step is handled by [`script/stage-windows-cef-runtime.ps1`](../../../script/stage-windows-cef-runtime.ps1)
-- builds `cli.exe`, which Qedit expects in the Windows dev layout
+- builds `cli.exe`, which Sofintel expects in the Windows dev layout
 - launches `zed.exe` directly with the staged dev runtime
 
 ## Manual local-GPUI build
@@ -97,14 +97,14 @@ Then open a new shell and re-run the build.
 
 ### Missing sibling GPUI checkout
 
-If you are using the local GPUI helper or the bootstrap script picks up a sibling checkout automatically, Qedit will resolve GPUI crates from `..\gpui`. In that case you must either:
+If you are using the local GPUI helper or the bootstrap script picks up a sibling checkout automatically, Sofintel will resolve GPUI crates from `..\gpui`. In that case you must either:
 
-- clone [Glass-HQ/gpui](https://github.com/Glass-HQ/gpui) next to the Qedit checkout, or
+- clone [Glass-HQ/gpui](https://github.com/Glass-HQ/gpui) next to the Sofintel checkout, or
 - move back to the pinned GPUI dependency flow once the local GPUI changes are no longer needed
 
 ### `RUSTFLAGS` breaks builds
 
-If you set the `RUSTFLAGS` environment variable, it overrides the `rustflags` settings in `.cargo/config.toml`, which Qedit needs for Windows builds.
+If you set the `RUSTFLAGS` environment variable, it overrides the `rustflags` settings in `.cargo/config.toml`, which Sofintel needs for Windows builds.
 
 If you need extra Rust flags, prefer adding them in a local `.cargo/config.toml` instead of exporting `RUSTFLAGS`.
 
@@ -121,7 +121,7 @@ Reboot after enabling Windows long paths.
 
 ### Graphics or launch failures
 
-Qedit currently uses the same GPU stack as Zed on Windows. If the app fails to open a window, inspect the log at:
+Sofintel currently uses the same GPU stack as Zed on Windows. If the app fails to open a window, inspect the log at:
 
 ```text
 C:\Users\YOU\AppData\Local\Zed\logs\Zed.log

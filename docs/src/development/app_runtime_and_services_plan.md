@@ -24,7 +24,7 @@ The deleted implementation had three core problems:
 
 1. It treated native and mobile development as a special sidebar feature instead of normal project execution.
 2. It mixed local runtime tooling and remote service management into one product area.
-3. It encoded Apple-specific UI and workflow choices too early, before Qedit had a general model for project detection, targets, devices, execution, and services.
+3. It encoded Apple-specific UI and workflow choices too early, before Sofintel had a general model for project detection, targets, devices, execution, and services.
 
 The result was a split design:
 
@@ -34,7 +34,7 @@ The result was a split design:
 
 ## Agreed Direction
 
-Qedit should support development for web, desktop, mobile, and cross-platform projects from one environment.
+Sofintel should support development for web, desktop, mobile, and cross-platform projects from one environment.
 
 The right architectural axis is:
 
@@ -48,7 +48,7 @@ This is explicitly not organized around a `native platforms` concept.
 
 ## Product Model
 
-Qedit should have three distinct layers:
+Sofintel should have three distinct layers:
 
 ### 1. Action Layer
 
@@ -107,7 +107,7 @@ Provider adapters should own:
 
 ## Capability Model
 
-Qedit should detect what a workspace can do, then expose the relevant controls.
+Sofintel should detect what a workspace can do, then expose the relevant controls.
 
 Capabilities can include:
 
@@ -142,7 +142,7 @@ Xcode is not analogous to App Store Connect. The model must preserve that distin
 
 ## Language Model
 
-Language support should continue to live in Qedit’s existing language/editor/LSP architecture.
+Language support should continue to live in Sofintel’s existing language/editor/LSP architecture.
 
 What gets added here is not a separate native-language subsystem. What gets added is orchestration on top of existing language support:
 
@@ -233,7 +233,7 @@ Status: Done in this worktree as of 2026-04-05.
 Status: Done for this phase.
 
 - [x] do not publish a protocol early
-- [x] first prove the model inside Qedit
+- [x] first prove the model inside Sofintel
 - [x] keep protocol extraction explicitly deferred until a later multi-provider phase
 
 ## Non-Goals For The Rebuild

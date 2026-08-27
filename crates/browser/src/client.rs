@@ -31,7 +31,7 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 
 // ── Keyboard Handler ─────────────────────────────────────────────────
-// Off-screen browser views receive input through Qedit routing only:
+// Off-screen browser views receive input through Sofintel routing only:
 // raw key events are forwarded explicitly for browser-owned keys and text input
 // is committed through the IME APIs. Native AppKit events would duplicate that.
 

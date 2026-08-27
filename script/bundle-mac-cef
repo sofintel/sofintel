@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Bundle Qedit/Zed with CEF framework for macOS
+# Bundle Sofintel/Zed with CEF framework for macOS
 # This script creates a development .app bundle with CEF properly integrated
 # including the required helper app bundles for GPU, Renderer, etc.
 
@@ -49,14 +49,14 @@ echo "Building zed..."
 "$CARGO_CMD" build $BUILD_FLAG --features mimalloc --package zed --target $target_triple
 
 # Build the helper executable
-echo "Building qedit_helper..."
-"$CARGO_CMD" build $BUILD_FLAG --package browser --bin qedit_helper --target $target_triple
+echo "Building sofintel_helper..."
+"$CARGO_CMD" build $BUILD_FLAG --package browser --bin sofintel_helper --target $target_triple
 
 # Set up paths
 BINARY_PATH="target/${target_triple}/${TARGET_DIR}/zed"
-HELPER_PATH="target/${target_triple}/${TARGET_DIR}/qedit_helper"
+HELPER_PATH="target/${target_triple}/${TARGET_DIR}/sofintel_helper"
 BUNDLE_DIR="target/${target_triple}/${TARGET_DIR}/bundle"
-APP_NAME="Qedit"
+APP_NAME="Sofintel"
 APP_PATH="${BUNDLE_DIR}/${APP_NAME}.app"
 
 # Create bundle structure
@@ -97,12 +97,12 @@ for helper_suffix in "${HELPERS[@]}"; do
     # Generate unique bundle identifier for each helper type
     # Helper -> .helper, Helper (GPU) -> .helper.GPU, etc.
     if [[ "$helper_suffix" == "Helper" ]]; then
-        BUNDLE_ID="dev.qedit.Qedit.helper"
+        BUNDLE_ID="dev.sofintel.Sofintel.helper"
     else
         # Extract type from "Helper (GPU)" -> "GPU"
         HELPER_TYPE="${helper_suffix#Helper (}"
         HELPER_TYPE="${HELPER_TYPE%)}"
-        BUNDLE_ID="dev.qedit.Qedit.helper.${HELPER_TYPE}"
+        BUNDLE_ID="dev.sofintel.Sofintel.helper.${HELPER_TYPE}"
     fi
 
     echo "  Creating: ${HELPER_APP_NAME}.app (${BUNDLE_ID})"
@@ -159,11 +159,11 @@ cat > "$APP_PATH/Contents/Info.plist" << 'PLIST'
 <plist version="1.0">
 <dict>
     <key>CFBundleName</key>
-    <string>Qedit</string>
+    <string>Sofintel</string>
     <key>CFBundleDisplayName</key>
-    <string>Qedit</string>
+    <string>Sofintel</string>
     <key>CFBundleIdentifier</key>
-    <string>dev.qedit.Qedit</string>
+    <string>dev.sofintel.Sofintel</string>
     <key>CFBundleVersion</key>
     <string>0.1.0</string>
     <key>CFBundleShortVersionString</key>
@@ -171,7 +171,7 @@ cat > "$APP_PATH/Contents/Info.plist" << 'PLIST'
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleExecutable</key>
-    <string>Qedit</string>
+    <string>Sofintel</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>LSMinimumSystemVersion</key>
@@ -188,21 +188,21 @@ cat > "$APP_PATH/Contents/Info.plist" << 'PLIST'
         <string>0</string>
     </dict>
     <key>NSCameraUsageDescription</key>
-    <string>Qedit needs camera access for video features</string>
+    <string>Sofintel needs camera access for video features</string>
     <key>NSMicrophoneUsageDescription</key>
-    <string>Qedit needs microphone access for audio features</string>
+    <string>Sofintel needs microphone access for audio features</string>
     <key>NSBluetoothAlwaysUsageDescription</key>
-    <string>Qedit needs Bluetooth access for browser features that interact with nearby devices</string>
+    <string>Sofintel needs Bluetooth access for browser features that interact with nearby devices</string>
     <key>CFBundleURLTypes</key>
     <array>
         <dict>
             <key>CFBundleTypeRole</key>
             <string>Viewer</string>
             <key>CFBundleURLName</key>
-            <string>Qedit</string>
+            <string>Sofintel</string>
             <key>CFBundleURLSchemes</key>
             <array>
-                <string>qedit</string>
+                <string>sofintel</string>
                 <string>http</string>
                 <string>https</string>
             </array>

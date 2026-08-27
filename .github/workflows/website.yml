@@ -1,4 +1,4 @@
-name: Deploy Qedit documentation
+name: Deploy Sofintel documentation
 
 on:
   push:

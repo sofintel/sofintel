@@ -49,7 +49,7 @@ impl BrowserView {
     fn toggle_bookmark_for_tab(&mut self, tab: &Entity<BrowserTab>, cx: &mut Context<Self>) {
         let tab = tab.read(cx);
         let url = tab.url().to_string();
-        if url == "qedit://newtab" || url.is_empty() {
+        if url == "sofintel://newtab" || url.is_empty() {
             return;
         }
         let title = tab.title().to_string();

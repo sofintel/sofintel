@@ -4,9 +4,8 @@
 //! Handles initialization, message loop pumping, and shutdown.
 //!
 //! CEF initialization is split into two phases:
-//! 1. `handle_subprocess()` - Must be called very early in main(), before any GUI
-//!    initialization. This handles CEF subprocess execution.
-//! 2. `initialize()` - Called later to complete CEF setup for the browser process.
+//! 1. `handle_subprocess()` - Loads CEF and handles helper-process execution.
+//! 2. `initialize()` - Called when Browser is enabled to complete CEF setup for the browser process.
 
 use anyhow::{Result, anyhow};
 use cef::{
@@ -43,20 +42,20 @@ fn elapsed_us() -> u64 {
 }
 
 // ── Browser Process Handler ──────────────────────────────────────────
-// Defined before QeditApp so a cached instance can be stored in it.
+// Defined before SofintelApp so a cached instance can be stored in it.
 
 #[derive(Clone)]
-struct QeditBrowserProcessHandler {}
+struct SofintelBrowserProcessHandler {}
 
-impl QeditBrowserProcessHandler {
+impl SofintelBrowserProcessHandler {
     fn new() -> Self {
         Self {}
     }
 }
 
 wrap_browser_process_handler! {
-    struct QeditBrowserProcessHandlerBuilder {
-        handler: QeditBrowserProcessHandler,
+    struct SofintelBrowserProcessHandlerBuilder {
+        handler: SofintelBrowserProcessHandler,
     }
 
     impl BrowserProcessHandler {
@@ -78,8 +77,8 @@ wrap_browser_process_handler! {
     }
 }
 
-impl QeditBrowserProcessHandlerBuilder {
-    fn build(handler: QeditBrowserProcessHandler) -> BrowserProcessHandler {
+impl SofintelBrowserProcessHandlerBuilder {
+    fn build(handler: SofintelBrowserProcessHandler) -> BrowserProcessHandler {
         Self::new(handler)
     }
 }
@@ -87,14 +86,15 @@ impl QeditBrowserProcessHandlerBuilder {
 // ── CEF App ──────────────────────────────────────────────────────────
 
 #[derive(Clone)]
-struct QeditApp {
+struct SofintelApp {
     browser_process_handler: cef::BrowserProcessHandler,
     render_process_handler: cef::RenderProcessHandler,
 }
 
-impl QeditApp {
+impl SofintelApp {
     fn new() -> Self {
-        let handler = QeditBrowserProcessHandlerBuilder::build(QeditBrowserProcessHandler::new());
+        let handler =
+            SofintelBrowserProcessHandlerBuilder::build(SofintelBrowserProcessHandler::new());
         let render_process_handler = PageChromeRenderProcessHandlerBuilder::build();
         Self {
             browser_process_handler: handler,
@@ -104,8 +104,8 @@ impl QeditApp {
 }
 
 wrap_app! {
-    struct QeditAppBuilder {
-        app: QeditApp,
+    struct SofintelAppBuilder {
+        app: SofintelApp,
     }
 
     impl App {
@@ -161,7 +161,7 @@ wrap_app! {
             );
             #[cfg(debug_assertions)]
             {
-                if std::env::var_os("QEDIT_CEF_DEBUG").is_some() {
+                if std::env::var_os("SOFINTEL_CEF_DEBUG").is_some() {
                     command_line.append_switch(Some(&"enable-logging=stderr".into()));
                     command_line.append_switch_with_value(
                         Some(&"remote-debugging-port".into()),
@@ -181,14 +181,14 @@ wrap_app! {
     }
 }
 
-impl QeditAppBuilder {
-    fn build(app: QeditApp) -> cef::App {
+impl SofintelAppBuilder {
+    fn build(app: SofintelApp) -> cef::App {
         Self::new(app)
     }
 }
 
 pub fn build_cef_app() -> cef::App {
-    QeditAppBuilder::build(QeditApp::new())
+    SofintelAppBuilder::build(SofintelApp::new())
 }
 
 // ── CEF path resolution ──────────────────────────────────────────────
@@ -321,9 +321,7 @@ impl CefInstance {
         }
 
         if !CEF_SUBPROCESS_HANDLED.load(Ordering::SeqCst) {
-            return Err(anyhow!(
-                "CEF subprocess handling was not done. Call CefInstance::handle_subprocess() early in main()."
-            ));
+            Self::handle_subprocess()?;
         }
 
         Self::initialize_cef()?;
@@ -408,7 +406,7 @@ impl CefInstance {
 
         #[cfg(debug_assertions)]
         {
-            if std::env::var_os("QEDIT_CEF_DEBUG").is_some() {
+            if std::env::var_os("SOFINTEL_CEF_DEBUG").is_some() {
                 settings.remote_debugging_port = 9222;
             }
         }

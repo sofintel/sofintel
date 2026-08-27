@@ -13,8 +13,8 @@ path = "src/browser.rs"
 doctest = false
 
 [[bin]]
-name = "qedit_helper"
-path = "src/bin/qedit_helper.rs"
+name = "sofintel_helper"
+path = "src/bin/sofintel_helper.rs"
 
 [features]
 test-support = ["gpui/test-support"]

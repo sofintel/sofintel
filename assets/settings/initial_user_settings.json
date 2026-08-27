@@ -11,7 +11,7 @@
   "buffer_font_size": 15,
   "theme": {
     "mode": "system",
-    "light": "Qedit Light",
-    "dark": "Qedit Dark",
+    "light": "Sofintel Light",
+    "dark": "Sofintel Dark",
   },
 }

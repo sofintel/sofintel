@@ -64,7 +64,7 @@ impl ServiceHubOnboarding {
         match provider.id.as_str() {
             "app-store-connect" => ProviderPresentation {
                 description:
-                    "Manage App Store work from one place inside Qedit. Requires the local ASC CLI."
+                    "Manage App Store work from one place inside Sofintel. Requires the local ASC CLI."
                         .to_string(),
                 highlights: vec![
                     "Install ASC CLI once on this machine".to_string(),
@@ -90,11 +90,11 @@ impl ServiceHubOnboarding {
                 let action_highlight = if provider.workflows.is_empty() {
                     "Keep the important status in one place".to_string()
                 } else {
-                    "Run the next step without leaving Qedit".to_string()
+                    "Run the next step without leaving Sofintel".to_string()
                 };
 
                 ProviderPresentation {
-                    description: format!("Bring your {} work into Qedit.", provider.label),
+                    description: format!("Bring your {} work into Sofintel.", provider.label),
                     highlights: vec![resource_highlight, action_highlight, auth_highlight],
                     open_label: format!("Open {}", provider.label),
                 }
@@ -276,8 +276,8 @@ impl RenderOnce for ServiceHubOnboarding {
                                 .items_start()
                                 .child({
                                     let logo = match cx.theme().appearance {
-                                        theme::Appearance::Light => "images/qedit_logo_light.png",
-                                        theme::Appearance::Dark => "images/qedit_logo_dark.png",
+                                        theme::Appearance::Light => "images/sofintel_logo_light.png",
+                                        theme::Appearance::Dark => "images/sofintel_logo_dark.png",
                                     };
                                     gpui::img(logo).w(rems(2.5)).h(rems(2.5))
                                 })

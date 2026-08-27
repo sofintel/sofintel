@@ -2,11 +2,11 @@
 
 ## Overview
 
-Workspace Modes introduces a system for switching between different full-screen interfaces within Qedit. Rather than being just an IDE with embedded panels, Qedit becomes a complete development environment with first-class experiences for editing code, using the terminal, and (in the future) browsing the web.
+Workspace Modes introduces a system for switching between different full-screen interfaces within Sofintel. Rather than being just an IDE with embedded panels, Sofintel becomes a complete development environment with first-class experiences for editing code, using the terminal, and (in the future) browsing the web.
 
 ### Vision
 
-Qedit isn't just an IDE—it's a complete development environment.
+Sofintel isn't just an IDE—it's a complete development environment.
 
 - **Editor Mode**: Full code editing experience (current default)
 - **Terminal Mode**: Full terminal experience (like Ghostty/iTerm, not a watered-down panel)
@@ -332,7 +332,7 @@ Implementation approach:
 ## Edge Cases
 
 ### Opening Terminal Without a Project
-When Qedit is opened without a project folder:
+When Sofintel is opened without a project folder:
 - `default_working_directory()` in `terminal_view.rs` falls back to `dirs::home_dir()`
 - Terminal Mode will use this same logic
 - A terminal will open in the user's home directory

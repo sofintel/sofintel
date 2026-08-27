@@ -1,11 +1,11 @@
 [package]
-description = "Qedit - A high-performance code editor"
+description = "Sofintel - A high-performance code editor"
 edition.workspace = true
 name = "zed"
-version = "1.0.2"
+version = "1.0.3"
 publish.workspace = true
 license = "GPL-3.0-or-later"
-authors = ["Qedit HQ <team@qedit.dev>"]
+authors = ["Sofintel HQ <team@sofintel.dev>"]
 default-run = "zed"
 
 [lints]
@@ -267,35 +267,35 @@ repl = { workspace = true, features = ["test-support"] }
 
 [package.metadata.bundle-dev]
 icon = ["resources/app-icon-dev@2x.png", "resources/app-icon-dev.png"]
-identifier = "dev.qedit.Qedit-Dev"
-name = "Qedit Dev"
+identifier = "dev.sofintel.Sofintel-Dev"
+name = "Sofintel Dev"
 osx_minimum_system_version = "10.15.7"
 osx_info_plist_exts = ["resources/info/*"]
-osx_url_schemes = ["qedit", "http", "https"]
+osx_url_schemes = ["sofintel", "http", "https"]
 
 [package.metadata.bundle-nightly]
 icon = ["resources/app-icon-nightly@2x.png", "resources/app-icon-nightly.png"]
-identifier = "dev.qedit.Qedit-Nightly"
-name = "Qedit Nightly"
+identifier = "dev.sofintel.Sofintel-Nightly"
+name = "Sofintel Nightly"
 osx_minimum_system_version = "10.15.7"
 osx_info_plist_exts = ["resources/info/*"]
-osx_url_schemes = ["qedit", "http", "https"]
+osx_url_schemes = ["sofintel", "http", "https"]
 
 [package.metadata.bundle-preview]
 icon = ["resources/app-icon-preview@2x.png", "resources/app-icon-preview.png"]
-identifier = "dev.qedit.Qedit-Preview"
-name = "Qedit Preview"
+identifier = "dev.sofintel.Sofintel-Preview"
+name = "Sofintel Preview"
 osx_minimum_system_version = "10.15.7"
 osx_info_plist_exts = ["resources/info/*"]
-osx_url_schemes = ["qedit", "http", "https"]
+osx_url_schemes = ["sofintel", "http", "https"]
 
 [package.metadata.bundle-stable]
 icon = ["resources/app-icon@2x.png", "resources/app-icon.png"]
-identifier = "dev.qedit.Qedit"
-name = "Qedit"
+identifier = "dev.sofintel.Sofintel"
+name = "Sofintel"
 osx_minimum_system_version = "10.15.7"
 osx_info_plist_exts = ["resources/info/*"]
-osx_url_schemes = ["qedit", "http", "https"]
+osx_url_schemes = ["sofintel", "http", "https"]
 
 [package.metadata.cargo-machete]
 ignored = ["profiling", "zstd", "tracing"]

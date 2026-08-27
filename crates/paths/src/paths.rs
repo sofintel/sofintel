@@ -15,8 +15,8 @@ pub const EDITORCONFIG_NAME: &str = ".editorconfig";
 /// The directory will be created if it doesn't exist when set.
 static CUSTOM_DATA_DIR: OnceLock<PathBuf> = OnceLock::new();
 
-const APP_DIRECTORY_NAME: &str = "Qedit";
-const APP_DIRECTORY_NAME_LOWERCASE: &str = "qedit";
+const APP_DIRECTORY_NAME: &str = "Sofintel";
+const APP_DIRECTORY_NAME_LOWERCASE: &str = "sofintel";
 
 /// The resolved data directory, combining custom override or platform defaults.
 /// This is set once and cached for subsequent calls.
@@ -208,13 +208,13 @@ pub fn remote_server_state_dir() -> &'static PathBuf {
 /// Returns the path to the `Zed.log` file.
 pub fn log_file() -> &'static PathBuf {
     static LOG_FILE: OnceLock<PathBuf> = OnceLock::new();
-    LOG_FILE.get_or_init(|| logs_dir().join("Qedit.log"))
+    LOG_FILE.get_or_init(|| logs_dir().join("Sofintel.log"))
 }
 
 /// Returns the path to the `Zed.log.old` file.
 pub fn old_log_file() -> &'static PathBuf {
     static OLD_LOG_FILE: OnceLock<PathBuf> = OnceLock::new();
-    OLD_LOG_FILE.get_or_init(|| logs_dir().join("Qedit.log.old"))
+    OLD_LOG_FILE.get_or_init(|| logs_dir().join("Sofintel.log.old"))
 }
 
 /// Returns the path to the database directory.

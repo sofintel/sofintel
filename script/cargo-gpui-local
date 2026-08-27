@@ -13,11 +13,11 @@ if [ "$#" -eq 0 ]; then
 fi
 
 repo_root="$(cd "$(dirname "$0")/.." && pwd)"
-gpui_root="${QEDIT_GPUI_PATH:-$repo_root/../gpui}"
+gpui_root="${SOFINTEL_GPUI_PATH:-$repo_root/../gpui}"
 
 if [ ! -f "$gpui_root/crates/gpui/Cargo.toml" ]; then
     echo "Local GPUI checkout not found at: $gpui_root" >&2
-    echo "Set QEDIT_GPUI_PATH=/absolute/path/to/gpui or clone Glass-HQ/gpui to ../gpui" >&2
+    echo "Set SOFINTEL_GPUI_PATH=/absolute/path/to/gpui or clone Glass-HQ/gpui to ../gpui" >&2
     exit 1
 fi
 

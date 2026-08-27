@@ -1,13 +1,13 @@
 const docsIndex = [
-  { id: 'getting-started', section: 'Start here', title: 'Getting started', description: 'Install Qedit and learn the essential workflow.' },
+  { id: 'getting-started', section: 'Start here', title: 'Getting started', description: 'Install Sofintel and learn the essential workflow.' },
   { id: 'editing', section: 'Core workflow', title: 'Editing and navigation', description: 'Buffers, selections, key bindings, and navigation.' },
-  { id: 'customize', section: 'Make it yours', title: 'Customize Qedit', description: 'Themes, languages, extensions, and settings.' },
-  { id: 'development', section: 'Build from source', title: 'Development', description: 'Build Qedit and contribute to the project.' },
-  { id: 'installation', section: 'Guides', title: 'Installation', description: 'Set up Qedit on your machine.', href: 'https://github.com/musichen/qedit/blob/main/docs/src/installation.md' },
-  { id: 'quick-start', section: 'Guides', title: 'Quick start', description: 'Open a project and begin editing.', href: 'https://github.com/musichen/qedit/blob/main/docs/src/quick-start.md' },
-  { id: 'terminal', section: 'Guides', title: 'Terminal', description: 'Run commands beside your code.', href: 'https://github.com/musichen/qedit/blob/main/docs/src/terminal.md' },
-  { id: 'extensions', section: 'Reference', title: 'Extensions', description: 'Add languages and workflows.', href: 'https://github.com/musichen/qedit/blob/main/docs/src/extensions.md' },
-  { id: 'settings', section: 'Reference', title: 'All settings', description: 'Browse every available setting.', href: 'https://github.com/musichen/qedit/blob/main/docs/src/reference/all-settings.md' }
+  { id: 'customize', section: 'Make it yours', title: 'Customize Sofintel', description: 'Themes, languages, extensions, and settings.' },
+  { id: 'development', section: 'Build from source', title: 'Development', description: 'Build Sofintel and contribute to the project.' },
+  { id: 'installation', section: 'Guides', title: 'Installation', description: 'Set up Sofintel on your machine.', href: 'https://github.com/musichen/sofintel/blob/main/docs/src/installation.md' },
+  { id: 'quick-start', section: 'Guides', title: 'Quick start', description: 'Open a project and begin editing.', href: 'https://github.com/musichen/sofintel/blob/main/docs/src/quick-start.md' },
+  { id: 'terminal', section: 'Guides', title: 'Terminal', description: 'Run commands beside your code.', href: 'https://github.com/musichen/sofintel/blob/main/docs/src/terminal.md' },
+  { id: 'extensions', section: 'Reference', title: 'Extensions', description: 'Add languages and workflows.', href: 'https://github.com/musichen/sofintel/blob/main/docs/src/extensions.md' },
+  { id: 'settings', section: 'Reference', title: 'All settings', description: 'Browse every available setting.', href: 'https://github.com/musichen/sofintel/blob/main/docs/src/reference/all-settings.md' }
 ];
 
 function docsApp() {
@@ -20,7 +20,7 @@ function docsApp() {
     sections: [
       { id: 'start', label: 'Start here', items: [{ id: 'getting-started', title: 'Getting started' }] },
       { id: 'workflow', label: 'Core workflow', items: [{ id: 'editing', title: 'Editing and navigation' }] },
-      { id: 'customize', label: 'Make it yours', items: [{ id: 'customize', title: 'Customize Qedit' }] },
+      { id: 'customize', label: 'Make it yours', items: [{ id: 'customize', title: 'Customize Sofintel' }] },
       { id: 'development', label: 'Build from source', items: [{ id: 'development', title: 'Development' }] }
     ],
     get searchResults() {
@@ -41,7 +41,7 @@ function docsApp() {
       if (event.key === 'Escape' && this.mobileMenu) this.mobileMenu = false;
     },
     copyCommand() {
-      navigator.clipboard?.writeText('git clone https://github.com/musichen/qedit.git\ncd qedit\ncargo run -p zed');
+      navigator.clipboard?.writeText('git clone https://github.com/musichen/sofintel.git\ncd sofintel\ncargo run -p zed');
       this.copied = true;
       window.setTimeout(() => { this.copied = false; }, 1600);
     }

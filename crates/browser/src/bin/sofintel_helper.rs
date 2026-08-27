@@ -1,4 +1,4 @@
-//! Qedit Helper Process
+//! Sofintel Helper Process
 //!
 //! This is the helper executable for CEF subprocesses (GPU, Renderer, Plugin, etc.)
 //! It must be bundled as separate .app bundles in Contents/Frameworks/
@@ -11,7 +11,7 @@ fn main() {
         let exe_path = std::env::current_exe().expect("failed to get current exe path");
 
         // Try bundle-relative path first (helper is at
-        // Qedit Helper.app/Contents/MacOS/Qedit Helper, framework is 3 levels up)
+        // Sofintel Helper.app/Contents/MacOS/Sofintel Helper, framework is 3 levels up)
         let bundle_framework = exe_path.parent().map(|p| {
             p.join("../../../Chromium Embedded Framework.framework/Chromium Embedded Framework")
         });

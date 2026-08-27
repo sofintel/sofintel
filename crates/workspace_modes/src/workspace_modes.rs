@@ -1,6 +1,6 @@
-//! Workspace Modes for Qedit
+//! Workspace Modes for Sofintel
 //!
-//! This crate provides the mode switching functionality for Qedit.
+//! This crate provides the mode switching functionality for Sofintel.
 //! Modes allow switching between different full-screen interfaces:
 //! - Browser Mode: A full-screen browser experience (default on first launch)
 //! - Editor Mode: The full code editing experience

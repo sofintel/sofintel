@@ -561,7 +561,7 @@ fn text_to_url(text: &str) -> String {
 }
 
 fn display_url(url: &str) -> String {
-    if url == "qedit://newtab" {
+    if url == "sofintel://newtab" {
         return String::new();
     }
 

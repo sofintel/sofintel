@@ -26,7 +26,7 @@ impl Render for SearchButton {
         }
 
         button.child(
-            native_icon_button("project-search-indicator", "magnifyingqedit")
+            native_icon_button("project-search-indicator", "magnifyingsofintel")
                 .tooltip("Project Search")
                 .on_click(cx.listener(|_this, _, window, cx| {
                     window.dispatch_action(Box::new(workspace::DeploySearch::default()), cx);

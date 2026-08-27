@@ -209,7 +209,7 @@ impl AscCreateAppFormState {
             sku_input: new_text_input(window, cx, "SKU", "com.example.app", false),
             primary_locale_input: new_text_input(window, cx, "Primary Locale", "en-US", false),
             initial_version_input: new_text_input(window, cx, "Initial Version", "1.0", false),
-            company_name_input: new_text_input(window, cx, "Company Name", "Qedit", false),
+            company_name_input: new_text_input(window, cx, "Company Name", "Sofintel", false),
             apple_id_input: new_text_input(
                 window,
                 cx,
@@ -358,7 +358,7 @@ impl AscTestFlightReleaseFormState {
             source_mode: AscTestFlightSourceMode::LocalProject,
             selected_project_id: None,
             selected_scheme_id: None,
-            ipa_path_input: new_text_input(window, cx, "IPA Path", "./build/Qedit.ipa", false),
+            ipa_path_input: new_text_input(window, cx, "IPA Path", "./build/Sofintel.ipa", false),
             version_input: new_text_input(window, cx, "Version", "1.2.3", false),
             build_id_input: new_text_input(window, cx, "Build ID", "BUILD_ID", false),
             build_number_input: new_text_input(window, cx, "Build Number", "42", false),
@@ -549,7 +549,7 @@ fn validate_local_project_bundle_id_match(
         .filter(|bundle_id| !bundle_id.is_empty())
         .ok_or_else(|| {
             SharedString::from(
-                "Qedit could not read the selected scheme bundle ID. Check PRODUCT_BUNDLE_IDENTIFIER for the Release configuration before publishing.",
+                "Sofintel could not read the selected scheme bundle ID. Check PRODUCT_BUNDLE_IDENTIFIER for the Release configuration before publishing.",
             )
         })?;
 
@@ -590,7 +590,7 @@ fn new_two_factor_code_file_path() -> PathBuf {
         .duration_since(UNIX_EPOCH)
         .unwrap_or_default()
         .as_millis();
-    std::env::temp_dir().join(format!("qedit-asc-2fa-{timestamp}.txt"))
+    std::env::temp_dir().join(format!("sofintel-asc-2fa-{timestamp}.txt"))
 }
 
 fn two_factor_wait_command(path: &Path) -> String {
@@ -2385,7 +2385,7 @@ impl AppStoreConnectWorkspaceProvider {
                 "Checking ASC CLI…",
                 Color::Muted,
                 Some(
-                    "Qedit is validating the local ASC CLI installation before loading App Store Connect data."
+                    "Sofintel is validating the local ASC CLI installation before loading App Store Connect data."
                         .to_string(),
                 ),
             ),
@@ -2393,7 +2393,7 @@ impl AppStoreConnectWorkspaceProvider {
                 "Installing ASC CLI…",
                 Color::Accent,
                 Some(
-                    "Qedit is running `brew install asc`. Leave this view open until installation finishes."
+                    "Sofintel is running `brew install asc`. Leave this view open until installation finishes."
                         .to_string(),
                 ),
             ),
@@ -2945,7 +2945,7 @@ impl AppStoreConnectWorkspaceProvider {
             .bg(cx.theme().colors().background)
             .child(self.render_panel_header(
                 "Create App From Workspace Project",
-                "Create a new App Store Connect app for a local Apple project, then use it for release work inside Qedit.",
+                "Create a new App Store Connect app for a local Apple project, then use it for release work inside Sofintel.",
             ))
             .child(
                 h_flex()
@@ -3998,7 +3998,7 @@ fn parse_asc_cli_probe(path_output: &str, version_output: &str) -> Result<AscCli
     let version = version_output.trim();
     if version.is_empty() {
         return Err(format!(
-            "ASC CLI was found at {path}, but Qedit could not read its version."
+            "ASC CLI was found at {path}, but Sofintel could not read its version."
         ));
     }
 
@@ -4026,7 +4026,7 @@ fn command_output_detail(stdout: &[u8], stderr: &[u8], fallback: &str) -> String
 // - `asc` is missing from PATH.
 // - `asc version` fails because the installation is incomplete or broken.
 // - Homebrew is unavailable, so one-click installation cannot proceed.
-// - Homebrew installation fails and Qedit must surface actionable command output.
+// - Homebrew installation fails and Sofintel must surface actionable command output.
 fn load_asc_cli_state() -> AscCliState {
     let path_output = match std::process::Command::new("zsh")
         .args(["-lc", "command -v asc"])
@@ -4730,11 +4730,11 @@ mod tests {
     #[test]
     fn rejects_testflight_local_project_when_bundle_id_does_not_match_selected_app() {
         let error = validate_local_project_bundle_id_match(
-            "com.qedit.tests.iossample4",
+            "com.sofintel.tests.iossample4",
             &AppleWorkspaceSchemeSummary {
                 id: "IOSSample".to_string(),
                 label: "IOSSample".to_string(),
-                bundle_id: Some("com.qedit.tests.iossample".to_string()),
+                bundle_id: Some("com.sofintel.tests.iossample".to_string()),
                 marketing_version: Some("1.0".to_string()),
                 build_number: Some("1".to_string()),
                 platform: Some("IOS".to_string()),
@@ -4744,14 +4744,14 @@ mod tests {
 
         assert_eq!(
             error,
-            "The selected App Store Connect app uses bundle ID `com.qedit.tests.iossample4`, but the local scheme `IOSSample` builds `com.qedit.tests.iossample`. Choose the matching app or switch schemes before publishing."
+            "The selected App Store Connect app uses bundle ID `com.sofintel.tests.iossample4`, but the local scheme `IOSSample` builds `com.sofintel.tests.iossample`. Choose the matching app or switch schemes before publishing."
         );
     }
 
     #[test]
     fn rejects_testflight_local_project_when_scheme_bundle_id_is_missing() {
         let error = validate_local_project_bundle_id_match(
-            "com.qedit.tests.iossample4",
+            "com.sofintel.tests.iossample4",
             &AppleWorkspaceSchemeSummary {
                 id: "IOSSample".to_string(),
                 label: "IOSSample".to_string(),
@@ -4765,7 +4765,7 @@ mod tests {
 
         assert_eq!(
             error,
-            "Qedit could not read the selected scheme bundle ID. Check PRODUCT_BUNDLE_IDENTIFIER for the Release configuration before publishing."
+            "Sofintel could not read the selected scheme bundle ID. Check PRODUCT_BUNDLE_IDENTIFIER for the Release configuration before publishing."
         );
     }
 

@@ -11,8 +11,8 @@
   // - "dark": Use the theme indicated by the "dark" field
   "theme": {
     "mode": "system",
-    "light": "Qedit Light",
-    "dark": "Qedit Dark",
+    "light": "Sofintel Light",
+    "dark": "Sofintel Dark",
   },
   "icon_theme": "Zed (Default)",
   // The name of a base set of key bindings to use.

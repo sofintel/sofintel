@@ -273,8 +273,8 @@ pub enum ThemeSelection {
     },
 }
 
-pub const DEFAULT_LIGHT_THEME: &'static str = "Qedit Light";
-pub const DEFAULT_DARK_THEME: &'static str = "Qedit Dark";
+pub const DEFAULT_LIGHT_THEME: &'static str = "Sofintel Light";
+pub const DEFAULT_DARK_THEME: &'static str = "Sofintel Dark";
 
 impl Default for ThemeSelection {
     fn default() -> Self {

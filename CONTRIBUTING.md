@@ -1,19 +1,19 @@
-# Contributing to Qedit
+# Contributing to Sofintel
 
-Thank you for helping us make Qedit better!
+Thank you for helping us make Sofintel better!
 
-> Qedit is a fork of [Zed](https://github.com/zed-industries/zed). When contributing, please keep in mind that some crates and patterns originate from upstream Zed.
+> Sofintel is a fork of [Zed](https://github.com/zed-industries/zed). When contributing, please keep in mind that some crates and patterns originate from upstream Zed.
 
 ## Contribution ideas
 
-Qedit is in active development. We welcome PRs that are:
+Sofintel is in active development. We welcome PRs that are:
 
 - Fixing or extending the docs.
 - Fixing bugs.
 - Small enhancements to existing features to make them work for more people.
 - Small extra features, like keybindings or actions you miss from other editors or extensions.
 
-If you're looking for concrete ideas, check the [issues](https://github.com/musichen/qedit/issues) page.
+If you're looking for concrete ideas, check the [issues](https://github.com/musichen/sofintel/issues) page.
 
 If you're thinking about proposing or building a larger feature, read the [Zed Feature Process](./docs/src/development/feature-process.md) for how we think about feature design — what context to provide, what integration points to consider, and how to put together a strong proposal.
 
@@ -28,7 +28,7 @@ like, sorry).
   effort. If there isn't already a GitHub issue for your feature with
   confirmation that we want it, start with a GitHub discussion rather than a PR.
 - Include a clear description of **what you're solving**, and why it's important.
-- Include **tests**. For UI changes, consider updating visual regression tests (see [Building Qedit for macOS](./docs/src/development/macos.md#visual-regression-tests)).
+- Include **tests**. For UI changes, consider updating visual regression tests (see [Building Sofintel for macOS](./docs/src/development/macos.md#visual-regression-tests)).
 - If it changes the UI, attach **screenshots** or screen recordings.
 - Make the PR about **one thing only**, e.g. if it's a bugfix, don't add two
   features and a refactoring on top of that.
@@ -62,8 +62,8 @@ When your changes affect UI, consult this checklist:
 - Frames must take no more than 8ms (120fps)
 
 **Consistency**
-- Does it match Qedit's design language (spacing, typography, icons)?
-- Are terminology, labels, and tone consistent with the rest of Qedit?
+- Does it match Sofintel's design language (spacing, typography, icons)?
+- Are terminology, labels, and tone consistent with the rest of Sofintel?
 - Are interactions consistent (e.g., how tabs close, how modals dismiss, how errors show)?
 
 **Internationalization & Text**
@@ -73,7 +73,7 @@ When your changes affect UI, consult this checklist:
 - What does the happy path look like?
 - What does the unhappy path look like? (errors, rejections, invalid states)
 - How does it behave if data is missing, corrupted, or delayed?
-- Are error messages actionable and consistent with Qedit's voice?
+- Are error messages actionable and consistent with Sofintel's voice?
 
 **Discoverability & Learning**
 - Can a first-time user figure it out without docs?
@@ -92,11 +92,11 @@ Although there are few hard and fast rules, typically we don't merge:
 - Stylistic code changes that do not alter any app logic.
 - Anything that seems AI-generated without understanding the output.
 
-## Bird's-eye view of Qedit
+## Bird's-eye view of Sofintel
 
-Qedit is built on top of Zed's crate architecture. Here are the crates you're most likely to interact with:
+Sofintel is built on top of Zed's crate architecture. Here are the crates you're most likely to interact with:
 
-- [`gpui`](/crates/gpui) is a GPU-accelerated UI framework which provides all of the building blocks for Qedit. We maintain a [standalone fork](https://github.com/Glass-HQ/gpui) with native iOS/macOS component extensions. **We recommend familiarizing yourself with the root level GPUI documentation.**
+- [`gpui`](/crates/gpui) is a GPU-accelerated UI framework which provides all of the building blocks for Sofintel. We maintain a [standalone fork](https://github.com/Glass-HQ/gpui) with native iOS/macOS component extensions. **We recommend familiarizing yourself with the root level GPUI documentation.**
 - [`editor`](/crates/editor) contains the core `Editor` type that drives both the code editor and all various input fields. It also handles a display layer for LSP features such as Inlay Hints or code completions.
 - [`project`](/crates/project) manages files and navigation within the filetree. It is also the app's side of communication with LSP.
 - [`workspace`](/crates/workspace) handles local state serialization and groups projects together.
@@ -104,5 +104,5 @@ Qedit is built on top of Zed's crate architecture. Here are the crates you're mo
 - [`lsp`](/crates/lsp) handles communication with external LSP servers.
 - [`language`](/crates/language) drives `editor`'s understanding of language — from providing a list of symbols to the syntax map.
 - [`theme`](/crates/theme) defines the theme system and provides default themes.
-- [`ui`](/crates/ui) is a collection of UI components and common patterns used throughout Qedit.
-- [`zed`](/crates/zed) is where all things come together, and the `main` entry point for Qedit.
+- [`ui`](/crates/ui) is a collection of UI components and common patterns used throughout Sofintel.
+- [`zed`](/crates/zed) is where all things come together, and the `main` entry point for Sofintel.

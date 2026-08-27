@@ -1,6 +1,6 @@
-# Qedit Docs
+# Sofintel Docs
 
-Welcome to Qedit's documentation.
+Welcome to Sofintel's documentation.
 
 > These docs are inherited from upstream Zed. The documentation infrastructure and content will be updated in the future.
 

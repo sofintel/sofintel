@@ -1,6 +1,10 @@
-# Qedit
+# Sofintel
 
-Qedit is a browser, code editor, and terminal in one app. It brings browsing, coding, and command-line workflows together in a single environment.
+<p align="center">
+  <img src="assets/images/sofintel-icon.png" alt="Sofintel icon" width="180">
+</p>
+
+Sofintel is a browser, code editor, and terminal in one app. It brings browsing, coding, and command-line workflows together in a single environment.
 
 ## Features
 
@@ -10,8 +14,8 @@ Qedit is a browser, code editor, and terminal in one app. It brings browsing, co
 
 ## Building
 
-- [Build Qedit for macOS](./docs/src/development/macos.md)
-- [Build Qedit for Windows](./docs/src/development/windows.md)
+- [Build Sofintel for macOS](./docs/src/development/macos.md)
+- [Build Sofintel for Windows](./docs/src/development/windows.md)
 
 For local GPUI development, use [`script/cargo-gpui-local`](./script/cargo-gpui-local) or [`script/cargo-gpui-local.ps1`](./script/cargo-gpui-local.ps1).
 
@@ -21,6 +25,6 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for contribution guidelines.
 
 ## License
 
-Qedit is licensed under the [GNU General Public License v3.0 or later](./LICENSE-GPL).
+Sofintel is licensed under the [GNU General Public License v3.0 or later](./LICENSE-GPL).
 
 A small number of utility crates are licensed under [Apache License 2.0](./LICENSE-APACHE). See individual crate `Cargo.toml` files for details.

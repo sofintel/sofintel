@@ -129,7 +129,7 @@ impl TitleBar {
             let search_workspace = workspace.clone();
             items.push(
                 NativePopoverClickableRow::new(format!("Search \"{}\"", query))
-                    .icon("magnifyingqedit")
+                    .icon("magnifyingsofintel")
                     .detail("Google")
                     .selected(selected == Some(row_index))
                     .on_click(move |window, cx| {
@@ -192,7 +192,7 @@ impl TitleBar {
         let menu = NativeSearchSuggestionMenu::new(450.0, content_height.min(400.0)).items(items);
         window.update_native_search_suggestion_menu(
             menu,
-            NativeSearchFieldTarget::ToolbarItem("qedit.omnibox".into()),
+            NativeSearchFieldTarget::ToolbarItem("sofintel.omnibox".into()),
         );
     }
 
@@ -265,7 +265,7 @@ impl TitleBar {
             NativePopover::new(360.0, (row_count as f64 * 28.0 + 32.0).clamp(120.0, 360.0))
                 .behavior(NativePopoverBehavior::Transient)
                 .items(items),
-            NativePopoverAnchor::ToolbarItem("qedit.browser.downloads".into()),
+            NativePopoverAnchor::ToolbarItem("sofintel.browser.downloads".into()),
         );
     }
 
@@ -309,7 +309,7 @@ fn text_to_url(text: &str) -> String {
 }
 
 fn display_omnibox_text(url: &str) -> String {
-    if url == "qedit://newtab" {
+    if url == "sofintel://newtab" {
         String::new()
     } else {
         url.to_string()

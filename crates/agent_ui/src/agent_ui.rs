@@ -512,7 +512,7 @@ pub fn init(
     .detach();
 
     maybe_backfill_editor_layout(fs.clone(), is_new_install, cx);
-    enforce_qedit_editor_layout(fs, cx);
+    enforce_sofintel_editor_layout(fs, cx);
 }
 
 fn maybe_backfill_editor_layout(fs: Arc<dyn Fs>, is_new_install: bool, cx: &mut App) {
@@ -537,7 +537,7 @@ fn maybe_backfill_editor_layout(fs: Arc<dyn Fs>, is_new_install: bool, cx: &mut 
     }
 }
 
-fn enforce_qedit_editor_layout(fs: Arc<dyn Fs>, cx: &mut App) {
+fn enforce_sofintel_editor_layout(fs: Arc<dyn Fs>, cx: &mut App) {
     if matches!(AgentSettings::get_layout(cx), WindowLayout::Agent(_)) {
         AgentSettings::set_layout(WindowLayout::Editor(None), fs, cx);
     }

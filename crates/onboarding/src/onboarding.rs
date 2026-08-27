@@ -314,10 +314,10 @@ impl Render for Onboarding {
                                             .child({
                                                 let logo = match cx.theme().appearance {
                                                     theme::Appearance::Light => {
-                                                        "images/qedit_logo_light.png"
+                                                        "images/sofintel_logo_light.png"
                                                     }
                                                     theme::Appearance::Dark => {
-                                                        "images/qedit_logo_dark.png"
+                                                        "images/sofintel_logo_dark.png"
                                                     }
                                                 };
                                                 gpui::img(logo).w(rems(2.5)).h(rems(2.5))
@@ -325,7 +325,7 @@ impl Render for Onboarding {
                                             .child(
                                                 v_flex()
                                                     .child(
-                                                        Headline::new("Welcome to Qedit")
+                                                        Headline::new("Welcome to Sofintel")
                                                             .size(HeadlineSize::Small),
                                                     )
                                                     .child(

@@ -1,8 +1,8 @@
-# Qedit documentation website
+# Sofintel documentation website
 
 This is a dependency-light static site for GitHub Pages. It uses Alpine.js from jsDelivr for navigation, responsive menus, fuzzy search, and small interactions. The page is deployed by `.github/workflows/website.yml` to:
 
-`https://musichen.github.io/qedit/`
+`https://musichen.github.io/sofintel/`
 
 The content cards link to the canonical Markdown documentation in this repository. To preview locally, serve this folder with any static file server, for example:
 

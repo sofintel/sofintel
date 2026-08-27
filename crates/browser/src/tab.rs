@@ -135,7 +135,7 @@ impl BrowserTab {
             client,
             render_state,
             event_receiver: receiver,
-            url: String::from("qedit://newtab"),
+            url: String::from("sofintel://newtab"),
             title: String::from("New Tab"),
             is_loading: false,
             can_go_back: false,
