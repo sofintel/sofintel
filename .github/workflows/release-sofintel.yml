@@ -26,6 +26,8 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt
@@ -35,7 +37,7 @@ jobs:
           set -euo pipefail
           ruby -ryaml -e 'workflow = YAML.load_file(".github/workflows/release-sofintel.yml"); jobs = workflow.fetch("jobs"); %w[validate macos linux windows publish].each { |job| abort("missing #{job} job") unless jobs.key?(job) }; %w[macos linux windows].each { |job| abort("#{job} must depend on validate") unless jobs.fetch(job).fetch("needs") == "validate" }'
           bash -n scripts/build-macos-arm64.sh scripts/build-macos-x86_64.sh scripts/build-linux-amd64.sh scripts/build-linux-arm64.sh scripts/verify-release.sh
-          git diff --check HEAD^ HEAD
+          git diff --check
           cargo metadata --locked --no-deps --format-version 1 >/dev/null
           cargo check --locked --package browser
 

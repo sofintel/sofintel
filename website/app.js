@@ -1,58 +1,96 @@
-const docsIndex = [
-  { id: 'getting-started', section: 'Start here', title: 'Getting started', description: 'Install Sofintel and learn the essential workflow.' },
-  { id: 'editing', section: 'Core workflow', title: 'Editing and navigation', description: 'Buffers, selections, key bindings, and navigation.' },
-  { id: 'customize', section: 'Make it yours', title: 'Customize Sofintel', description: 'Themes, languages, extensions, and settings.' },
-  { id: 'development', section: 'Build from source', title: 'Development', description: 'Build Sofintel and contribute to the project.' },
-  { id: 'installation', section: 'Guides', title: 'Installation', description: 'Set up Sofintel on your machine.', href: 'https://github.com/musichen/sofintel/blob/main/docs/src/installation.md' },
-  { id: 'quick-start', section: 'Guides', title: 'Quick start', description: 'Open a project and begin editing.', href: 'https://github.com/musichen/sofintel/blob/main/docs/src/quick-start.md' },
-  { id: 'terminal', section: 'Guides', title: 'Terminal', description: 'Run commands beside your code.', href: 'https://github.com/musichen/sofintel/blob/main/docs/src/terminal.md' },
-  { id: 'extensions', section: 'Reference', title: 'Extensions', description: 'Add languages and workflows.', href: 'https://github.com/musichen/sofintel/blob/main/docs/src/extensions.md' },
-  { id: 'settings', section: 'Reference', title: 'All settings', description: 'Browse every available setting.', href: 'https://github.com/musichen/sofintel/blob/main/docs/src/reference/all-settings.md' }
-];
+// Sofintel landing page — install tabs, mobile nav, and dynamic year.
+(function () {
+  var GITHUB = "https://github.com/sofintel/sofintel";
 
-function docsApp() {
-  return {
-    mobileMenu: false,
-    searchOpen: false,
-    query: '',
-    copied: false,
-    activeSection: 'getting-started',
-    sections: [
-      { id: 'start', label: 'Start here', items: [{ id: 'getting-started', title: 'Getting started' }] },
-      { id: 'workflow', label: 'Core workflow', items: [{ id: 'editing', title: 'Editing and navigation' }] },
-      { id: 'customize', label: 'Make it yours', items: [{ id: 'customize', title: 'Customize Sofintel' }] },
-      { id: 'development', label: 'Build from source', items: [{ id: 'development', title: 'Development' }] }
-    ],
-    get searchResults() {
-      const query = this.query.trim().toLowerCase();
-      if (!query) return [];
-      const terms = query.split(/\s+/).filter(Boolean);
-      return docsIndex.filter((item) => terms.every((term) => `${item.title} ${item.description} ${item.section}`.toLowerCase().includes(term)));
-    },
-    openSearch() {
-      this.searchOpen = true;
-      this.$nextTick(() => this.$refs.searchInput?.focus());
-    },
-    handleKeydown(event) {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
-        event.preventDefault();
-        this.openSearch();
-      }
-      if (event.key === 'Escape' && this.mobileMenu) this.mobileMenu = false;
-    },
-    copyCommand() {
-      navigator.clipboard?.writeText('git clone https://github.com/musichen/sofintel.git\ncd sofintel\ncargo run -p zed');
-      this.copied = true;
-      window.setTimeout(() => { this.copied = false; }, 1600);
+  // Install command tabs.
+  var installOptions = [
+    { id: "curl", label: "curl", cmd: "curl -fsSL " + GITHUB + "/releases/latest/download/install.sh | sh" },
+    { id: "brew", label: "brew", cmd: "brew install sofintel" },
+    { id: "cargo", label: "cargo", cmd: "cargo install sofintel" },
+    { id: "linux", label: "Linux", cmd: "sudo dpkg -i Sofintel-1.0.3-amd64.deb" },
+    { id: "windows", label: "Windows", cmd: "irm " + GITHUB + "/releases/latest/download/sofintel.ps1 | iex" },
+  ];
+
+  function renderInstallTabs() {
+    var mount = document.getElementById("install-tabs");
+    if (!mount) return;
+
+    var wrap = document.createElement("div");
+    wrap.className = "install-tabs";
+
+    var tabs = document.createElement("div");
+    tabs.className = "tabs";
+
+    var command = document.createElement("div");
+    command.className = "command";
+
+    var active = installOptions[0].id;
+    var commandEl = document.createElement("code");
+    var copyBtn = document.createElement("button");
+    copyBtn.className = "copy";
+    copyBtn.setAttribute("aria-label", "Copy install command");
+    copyBtn.innerHTML = copySvg();
+    copyBtn.addEventListener("click", function () {
+      navigator.clipboard.writeText(activeCmd()).then(function () {
+        copyBtn.innerHTML = checkSvg();
+        setTimeout(function () { copyBtn.innerHTML = copySvg(); }, 1600);
+      });
+    });
+
+    installOptions.forEach(function (opt) {
+      var btn = document.createElement("button");
+      btn.className = "tab";
+      btn.textContent = opt.label;
+      btn.addEventListener("click", function () {
+        active = opt.id;
+        tabs.querySelectorAll(".tab").forEach(function (b) { b.classList.remove("active"); });
+        btn.classList.add("active");
+        commandEl.innerHTML = renderCmd(opt.cmd);
+      });
+      if (opt.id === active) btn.classList.add("active");
+      tabs.appendChild(btn);
+    });
+
+    function activeCmd() {
+      return installOptions.filter(function (o) { return o.id === active; })[0].cmd;
     }
-  };
-}
+    function renderCmd(cmd) {
+      return '<span class="prompt">$ </span>' + cmd;
+    }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const sections = [...document.querySelectorAll('[data-section]')];
-  const observer = new IntersectionObserver((entries) => {
-    const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-    if (visible && window.Alpine) window.Alpine.$data(document.querySelector('[x-data]')).activeSection = visible.target.dataset.section;
-  }, { rootMargin: '-20% 0px -65% 0px', threshold: [0.1, 0.4, 0.8] });
-  sections.forEach((section) => observer.observe(section));
-});
+    commandEl.innerHTML = renderCmd(activeCmd());
+    command.appendChild(commandEl);
+    command.appendChild(copyBtn);
+    wrap.appendChild(tabs);
+    wrap.appendChild(command);
+    mount.appendChild(wrap);
+  }
+
+  function copySvg() {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+  }
+  function checkSvg() {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+  }
+
+  // Responsive nav toggle.
+  var toggler = document.getElementById("nav-toggle");
+  var nav = document.getElementById("nav-links");
+  if (toggler && nav) {
+    toggler.addEventListener("click", function () {
+      var open = nav.classList.toggle("collapsed") === false;
+      toggler.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    // Collapse on small screens by default.
+    if (window.matchMedia("(max-width: 640px)").matches) nav.classList.add("collapsed");
+    nav.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () { if (nav.classList.contains("collapsed")) nav.classList.remove("collapsed"); });
+    });
+  }
+
+  // Year.
+  var year = document.getElementById("year");
+  if (year) year.textContent = new Date().getFullYear();
+
+  renderInstallTabs();
+})();

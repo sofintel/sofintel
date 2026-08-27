@@ -3,114 +3,218 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Sofintel documentation - a fast browser, code editor, and terminal.">
-  <title>Sofintel Documentation</title>
+  <title>Sofintel — Browser, editor, and terminal in one</title>
+  <meta name="description" content="Sofintel is Software Intelligence: an all-in-one, lightweight Rust IDE with an embedded Chromium browser, editor, and terminal. Build, test, and ship without switching apps.">
+  <meta property="og:title" content="Sofintel — Browser, editor, and terminal in one">
+  <meta property="og:description" content="All-in-one Rust IDE: embedded CEF browser, high-performance editor, and integrated terminal in a single native app.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="sofi.png">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" href="icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="icon.png">
   <link rel="stylesheet" href="styles.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <script defer src="app.js"></script>
 </head>
-<body x-data="docsApp()" @keydown.window="handleKeydown($event)">
-  <div class="app-shell">
-    <aside class="sidebar" :class="{ 'is-open': mobileMenu }" aria-label="Documentation navigation">
-      <div class="brand-row">
-        <a class="brand" href="#top" @click="mobileMenu = false" aria-label="Sofintel documentation home">
-          <span class="brand-mark">q</span><span>Sofintel</span>
-        </a>
-        <button class="icon-button mobile-only" @click="mobileMenu = false" aria-label="Close navigation">×</button>
-      </div>
-      <div class="sidebar-caption">Documentation <span>1.0.1</span></div>
-      <button class="search-trigger" @click="openSearch()" aria-label="Search documentation">
-        <span class="search-icon">⌕</span><span>Search docs</span><kbd>⌘ K</kbd>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="#top" aria-label="Sofintel home">
+        <img src="sofi.png" alt="Sofi, the Sofintel cat mascot">
+        <span>Sofintel</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
       </button>
-      <nav class="nav-list">
-        <template x-for="section in sections" :key="section.id">
-          <div class="nav-group">
-            <div class="nav-heading" x-text="section.label"></div>
-            <template x-for="item in section.items" :key="item.id">
-              <a class="nav-link" :href="'#' + item.id" :class="{ active: activeSection === item.id }" @click="mobileMenu = false" x-text="item.title"></a>
-            </template>
-          </div>
-        </template>
+      <nav class="nav-links" id="nav-links">
+        <a href="#features">Features</a>
+        <a href="#download">Download</a>
+        <a href="#packages">Packages</a>
+        <a href="#news">News</a>
+        <a href="https://github.com/sofintel/sofintel">GitHub</a>
+        <a class="btn-download" href="#download">Download</a>
       </nav>
-      <div class="sidebar-footer">
-        <a href="https://github.com/musichen/sofintel" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
-        <a href="https://github.com/musichen/sofintel/releases" target="_blank" rel="noreferrer">Releases <span>↗</span></a>
-      </div>
-    </aside>
-
-    <div class="backdrop" :class="{ visible: mobileMenu }" @click="mobileMenu = false"></div>
-    <main class="content" id="top">
-      <header class="topbar">
-        <button class="icon-button mobile-only" @click="mobileMenu = true" aria-label="Open navigation">☰</button>
-        <div class="breadcrumbs"><span>Sofintel</span><b>/</b><span>Documentation</span></div>
-        <div class="top-actions"><a href="https://github.com/musichen/sofintel" target="_blank" rel="noreferrer">GitHub ↗</a><a class="release-pill" href="https://github.com/musichen/sofintel/releases">v1.0.1</a></div>
-      </header>
-
-      <article class="article">
-        <section class="hero">
-          <div class="eyebrow">SOFINTEL / DOCUMENTATION</div>
-          <h1>Build in one<br><em>focused space.</em></h1>
-          <p class="hero-copy">Sofintel brings your browser, code editor, and terminal together in a fast, native development environment.</p>
-          <div class="hero-actions"><a class="button primary" href="#getting-started">Get started <span>→</span></a><a class="button secondary" href="https://github.com/musichen/sofintel/releases">Download v1.0.1</a></div>
-        </section>
-
-        <div class="notice"><span class="notice-dot"></span><div><strong>Sofintel 1.0.1 is available.</strong> <a href="https://github.com/musichen/sofintel/releases">Download the latest release</a> for macOS, Linux, or Windows.</div></div>
-
-        <section class="doc-section" id="getting-started" data-section="getting-started">
-          <div class="section-kicker">01 / START HERE</div><h2>Getting started</h2>
-          <p>Install Sofintel, open a project, and keep your entire workflow within reach.</p>
-          <div class="card-grid two">
-            <a class="doc-card" href="https://github.com/musichen/sofintel/blob/main/docs/src/installation.md"><span class="card-icon">↓</span><span><strong>Installation</strong><small>Set up Sofintel on your machine.</small></span><b>→</b></a>
-            <a class="doc-card" href="https://github.com/musichen/sofintel/blob/main/docs/src/quick-start.md"><span class="card-icon">✦</span><span><strong>Quick start</strong><small>Learn the essential workflow.</small></span><b>→</b></a>
-          </div>
-        </section>
-
-        <section class="doc-section" id="editing" data-section="editing">
-          <div class="section-kicker">02 / CORE WORKFLOW</div><h2>Editing and navigation</h2>
-          <p>Move through code quickly with an editor designed around keyboard-first workflows.</p>
-          <div class="card-grid three">
-            <a class="doc-card compact" href="https://github.com/musichen/sofintel/blob/main/docs/src/editing-code.md"><span class="card-icon">⌘</span><span><strong>Editing code</strong><small>Buffers, selections, and actions.</small></span></a>
-            <a class="doc-card compact" href="https://github.com/musichen/sofintel/blob/main/docs/src/key-bindings.md"><span class="card-icon">⌨</span><span><strong>Key bindings</strong><small>Make the editor yours.</small></span></a>
-            <a class="doc-card compact" href="https://github.com/musichen/sofintel/blob/main/docs/src/terminal.md"><span class="card-icon">&gt;_</span><span><strong>Terminal</strong><small>Run commands beside your code.</small></span></a>
-          </div>
-        </section>
-
-        <section class="doc-section" id="customize" data-section="customize">
-          <div class="section-kicker">03 / MAKE IT YOURS</div><h2>Customize Sofintel</h2>
-          <p>Configure appearance, languages, extensions, and project behavior to match your work.</p>
-          <div class="link-list">
-            <a href="https://github.com/musichen/sofintel/blob/main/docs/src/appearance.md"><span>Appearance and themes</span><b>→</b></a>
-            <a href="https://github.com/musichen/sofintel/blob/main/docs/src/configuring-languages.md"><span>Language configuration</span><b>→</b></a>
-            <a href="https://github.com/musichen/sofintel/blob/main/docs/src/extensions.md"><span>Extensions</span><b>→</b></a>
-            <a href="https://github.com/musichen/sofintel/blob/main/docs/src/reference/all-settings.md"><span>All settings reference</span><b>→</b></a>
-          </div>
-        </section>
-
-        <section class="doc-section" id="development" data-section="development">
-          <div class="section-kicker">04 / BUILD FROM SOURCE</div><h2>Development</h2>
-          <p>Sofintel is open source and welcomes improvements across the editor, platform integrations, and documentation.</p>
-          <div class="code-block"><div class="code-top"><span>Terminal</span><button @click="copyCommand()" x-text="copied ? 'Copied' : 'Copy'"></button></div><code><span class="prompt">$</span> git clone https://github.com/musichen/sofintel.git<br><span class="prompt">$</span> cd sofintel<br><span class="prompt">$</span> cargo run -p zed</code></div>
-          <a class="text-link" href="https://github.com/musichen/sofintel/blob/main/docs/src/development.md">Read the development guide →</a>
-        </section>
-
-        <footer class="article-footer"><span>Sofintel Documentation</span><span>Built for focused work.</span></footer>
-      </article>
-    </main>
-  </div>
-
-  <div class="search-modal" x-show="searchOpen" x-cloak x-transition.opacity @click.self="searchOpen = false">
-    <div class="search-panel" @click.stop>
-      <div class="search-input-wrap"><span>⌕</span><input x-ref="searchInput" x-model="query" @keydown.escape="searchOpen = false" placeholder="Search documentation..." aria-label="Search documentation"><kbd>ESC</kbd></div>
-      <div class="search-results" x-show="query.length > 0">
-        <template x-for="result in searchResults" :key="result.id"><a class="result" :href="result.href || '#' + result.id" @click="searchOpen = false; query = ''"><span class="result-type" x-text="result.section"></span><strong x-text="result.title"></strong><small x-text="result.description"></small></a></template>
-        <div class="empty-search" x-show="searchResults.length === 0">No matching documentation found.</div>
-      </div>
-      <div class="search-hint" x-show="query.length === 0">Search sections, commands, and topics across Sofintel documentation.</div>
     </div>
-  </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="grid-lines" aria-hidden></div>
+      <div class="container">
+        <img class="sofi" src="sofi.png" alt="Sofi, the fluffy cat mascot of Sofintel">
+        <p class="badge">Rust · Zed-derived · CEF</p>
+        <h1>Browser, editor, and terminal.<br>One app.</h1>
+        <p class="lead">Sofintel is Software Intelligence: an all-in-one lightweight Rust IDE where everything lives in one environment. Build, test, and ship without switching apps.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#download">Download for Mac</a>
+          <a class="btn btn-secondary" href="https://github.com/sofintel/sofintel">View source</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install -->
+    <section class="section" id="install">
+      <div class="container">
+        <div id="install-tabs"></div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section" id="features">
+      <div class="container">
+        <p class="section-kicker">What's inside</p>
+        <h2>Everything you need, in one window.</h2>
+        <p class="section-sub">A full browser, a high-performance editor, and a terminal — all native, all one step away.</p>
+        <div class="grid-3" style="margin-top:2.5rem;">
+          <article class="card" style="padding:1.75rem;">
+            <span style="font-family:var(--font-mono,Geist Mono,monospace);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--primary);">Browser</span>
+            <h3 style="margin-top:.75rem;font-size:1.25rem;">See it, right there.</h3>
+            <p style="margin-top:.5rem;font-size:.875rem;color:var(--muted-foreground);">A full Chromium browser (CEF) lives inside Sofintel. Preview what you're building, open docs, debug network requests without leaving.</p>
+          </article>
+          <article class="card" style="padding:1.75rem;">
+            <span style="font-family:var(--font-mono,Geist Mono,monospace);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--primary);">Editor</span>
+            <h3 style="margin-top:.75rem;font-size:1.25rem;">Code with context.</h3>
+            <p style="margin-top:.5rem;font-size:.875rem;color:var(--muted-foreground);">Built on Zed's editor, extended for Sofintel. Your browser and terminal are always one step away — no mental overhead.</p>
+          </article>
+          <article class="card" style="padding:1.75rem;">
+            <span style="font-family:var(--font-mono,Geist Mono,monospace);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--primary);">Terminal</span>
+            <h3 style="margin-top:.75rem;font-size:1.25rem;">Stay in the flow.</h3>
+            <p style="margin-top:.5rem;font-size:.875rem;color:var(--muted-foreground);">Run commands where you work. The integrated terminal keeps you in the same environment — no detours, no disruptions.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why -->
+    <section class="section">
+      <div class="container">
+        <p class="section-kicker">Why Sofintel</p>
+        <h2>Built for focus.</h2>
+        <div class="grid-why" style="margin-top:2.5rem;">
+          <div class="why-cell"><h3>One surface for everything</h3><p>Browser, code, and command line share one native app. Less task-switching, deeper focus, fewer context breaks.</p></div>
+          <div class="why-cell"><h3>GPU-accelerated</h3><p>Rendered with GPUI, the GPU-accelerated UI layer Sofintel draws every pane with. Fast to start, smooth to use even on big projects.</p></div>
+          <div class="why-cell"><h3>Native and lean</h3><p>A Rust core with no cloud bolt-ons. Your projects and your privacy stay on your machine.</p></div>
+          <div class="why-cell"><h3>Yours to bend</h3><p>Extensions, themes, keymaps, and language servers are plain files and open packages. Adapt Sofintel to your workflow, not the reverse.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Editor depth -->
+    <section class="section">
+      <div class="container">
+        <p class="section-kicker">The editor</p>
+        <h2>Everything the editor kept.</h2>
+        <div class="grid-feature" style="margin-top:2.5rem;">
+          <div class="feature-cell"><span class="num">01</span><h3>Multibuffer editing</h3><p>Edit search results across files in one buffer.</p></div>
+          <div class="feature-cell"><span class="num">02</span><h3>Native LSP + DAP</h3><p>Language servers and debuggers wired in, no plugins.</p></div>
+          <div class="feature-cell"><span class="num">03</span><h3>Tree-sitter syntax</h3><p>Incremental parsing for accurate highlight and motion.</p></div>
+          <div class="feature-cell"><span class="num">04</span><h3>Vim &amp; Emacs modes</h3><p>First-class modal editing, not an emulation layer.</p></div>
+          <div class="feature-cell"><span class="num">05</span><h3>Git built in</h3><p>Blame, diffs, and a graph view beside your code.</p></div>
+          <div class="feature-cell"><span class="num">06</span><h3>Terminal &amp; tasks</h3><p>Integrated terminal, task runner, and diagnostics.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Packages -->
+    <section class="section" id="packages">
+      <div class="container">
+        <p class="section-kicker">Packages</p>
+        <h2>Extend it your way.</h2>
+        <p class="section-sub">Themes, language support, keymaps, and workflow extensions. Published from git or npm, installed with a single command.</p>
+        <div class="package-grid" style="margin-top:2.5rem;">
+          <div class="package-cell"><p class="name">sofintel-theme-paper</p><p class="desc">Flat light themes</p></div>
+          <div class="package-cell"><p class="name">sofintel-lsp-rust</p><p class="desc">rust-analyzer bundle</p></div>
+          <div class="package-cell"><p class="name">sofintel-vim-extra</p><p class="desc">Extended modal motions</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Download -->
+    <section class="section" id="download">
+      <div class="container">
+        <p class="section-kicker">Download</p>
+        <h2>Get Sofintel</h2>
+        <p class="section-sub">Signed builds for every platform. Reproducible from source.</p>
+        <div class="platform-grid" style="margin-top:2.5rem;">
+          <a class="platform" href="https://github.com/sofintel/sofintel/releases" style="border-left-color:var(--primary);">
+            <h3>macOS</h3><p class="detail">Apple silicon · Intel</p><p class="file">Sofintel-1.0.3.dmg</p>
+          </a>
+          <a class="platform" href="https://github.com/sofintel/sofintel/releases">
+            <h3>Linux</h3><p class="detail">.deb · amd64 · arm64</p><p class="file">Sofintel-1.0.3.deb</p>
+          </a>
+          <a class="platform" href="https://github.com/sofintel/sofintel/releases">
+            <h3>Windows</h3><p class="detail">x86_64</p><p class="file">Sofintel-1.0.3.zip</p>
+          </a>
+          <a class="platform" href="https://github.com/sofintel/sofintel">
+            <h3>Source</h3><p class="detail">cargo build --release</p><p class="file">git clone sofintel</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- News -->
+    <section class="section" id="news">
+      <div class="container">
+        <p class="section-kicker">News</p>
+        <h2>Changelog</h2>
+        <div class="news-list">
+          <div class="news-item"><span class="date">2026-08-27</span><span class="title">1.0.3 — rebranded to Sofintel, cross-platform release pipeline</span></div>
+          <div class="news-item"><span class="date">2026-08-26</span><span class="title">Embedded Chromium browser + terminal shipped</span></div>
+          <div class="news-item"><span class="date">2026-08-21</span><span class="title">Zed-derived editor core, GPUI rendering</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <div class="container">
+        <h2>Your new dev environment</h2>
+        <p>Browser, editor, and terminal in one native app. Built for focus. Ship faster without switching windows.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://github.com/sofintel/sofintel/releases">Download</a>
+          <a class="btn btn-secondary" href="https://github.com/sofintel/sofintel">View source</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <h3>Sofintel</h3>
+        <p class="blurb">Software Intelligence: browser, editor, and terminal in one native Rust app.</p>
+      </div>
+      <div class="footer-col">
+        <p class="label">Product</p>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#download">Downloads</a></li>
+          <li><a href="#news">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="label">Project</p>
+        <ul>
+          <li><a href="https://github.com/sofintel/sofintel">GitHub</a></li>
+          <li><a href="https://github.com/sofintel/sofintel/releases">Releases</a></li>
+          <li><a href="https://github.com/sofintel/sofintel/discussions">Support</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="label">License</p>
+        <ul>
+          <li><a href="https://github.com/sofintel/sofintel/blob/main/LICENSE-GPL">GPL-3.0</a></li>
+          <li><a href="https://github.com/sofintel/sofintel/blob/main/LICENSE-APACHE">Apache-2.0</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <span>© <span id="year"></span> Sofintel. All rights reserved.</span>
+        <span>built in Rust · GPUI · zero telemetry</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>
