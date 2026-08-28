@@ -116,6 +116,7 @@ button { font: inherit; cursor: pointer; }
 .hero h1 { font-size: clamp(2.25rem, 6vw, 3.75rem); font-weight: 600; line-height: 1.05; }
 .hero .lead { max-width: 36rem; margin: 1.25rem auto 2rem; font-size: 1.0625rem; color: var(--muted-foreground); }
 .hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+.hero-download-title { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 0.8125rem; font-weight: 500; color: var(--muted-foreground); }
 
 /* ---------- Section ---------- */
 .section { border-bottom: 1px solid var(--border); }
