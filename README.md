@@ -6,6 +6,18 @@
 
 Sofintel is a browser, code editor, and terminal in one app. It brings browsing, coding, and command-line workflows together in a single environment.
 
+## Download
+
+Grab the latest builds from [GitHub Releases](https://github.com/sofintel/sofintel/releases) — every platform, signed and reproducible from source.
+
+| Platform | Architecture | Download |
+| --- | --- | --- |
+| **macOS** | Apple Silicon (arm64) | [Sofintel-1.0.3-macos-arm64.zip](https://github.com/sofintel/sofintel/releases/download/v1.0.3/Sofintel-1.0.3-macos-arm64.zip) |
+| **macOS** | Intel (x86_64) | [Sofintel-1.0.3-macos-x86_64.zip](https://github.com/sofintel/sofintel/releases/download/v1.0.3/Sofintel-1.0.3-macos-x86_64.zip) |
+| **Linux** | amd64 | [Sofintel-1.0.3-linux-amd64.deb](https://github.com/sofintel/sofintel/releases/download/v1.0.3/Sofintel-1.0.3-linux-amd64.deb) |
+| **Linux** | arm64 | [Sofintel-1.0.3-linux-arm64.deb](https://github.com/sofintel/sofintel/releases/download/v1.0.3/Sofintel-1.0.3-linux-arm64.deb) |
+| **Windows** | x64 | [Sofintel-1.0.3-windows-x86_64.zip](https://github.com/sofintel/sofintel/releases/download/v1.0.3/Sofintel-1.0.3-windows-x86_64.zip) |
+
 ## Features
 
 - **Browser** - Browse and work without leaving the app.

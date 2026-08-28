@@ -6673,6 +6673,13 @@ impl Workspace {
                         }
                     }
 
+                    // Surface the project file tree so the File context actually shows files.
+                    // Without this, entering Editor mode leaves the sidebar showing whatever
+                    // section was active (e.g. browser tabs) and the center can appear empty.
+                    if previous_mode != ModeId::EDITOR {
+                        self.select_sidebar_section(WorkspaceSidebarSection::Project, window, cx);
+                    }
+
                     let active_pane = self.active_pane.clone();
                     window.focus(&active_pane.focus_handle(cx), cx);
                 }
