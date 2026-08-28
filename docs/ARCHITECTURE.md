@@ -70,6 +70,16 @@ click icon
             └─ serialize_workspace + cx.notify()  // triggers repaint
 ```
 
+### The agent panel is lazy
+
+The `AgentPanel` is **not** loaded at app startup. It is created the first time the user
+opens the Agent area (via `AgentPanel::toggle`/`toggle_focus`, which call
+`AgentPanel::ensure_loaded`). This matters because constructing the panel also constructs
+the model selector, which runs `authenticate_all_providers` and reads every provider's
+credentials from the system keychain. Deferring that load avoids a flood of "access
+keychain" prompts on launch, and lets Sofintel show a one-time explanatory toast about
+local provider credentials the first time the Agent area is opened.
+
 ### Mode → layout preset map
 
 `layout_preset()` returns:

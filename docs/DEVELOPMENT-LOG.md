@@ -48,3 +48,7 @@ Example:
 - `[ci]` Release pipeline + docs site; cross-platform GitHub release
 - `[icons]` Validate releases and apply Sofintel icon
 - `[img]` Keep macOS disk images focused (discard old DMGs after build)
+
+- `[workspace]` Restore classic file tree in the Project/File sidebar (real ProjectPanel instead of threads navigator)
+- `[agent]` Defer agent panel load to first use (no credential keychain prompts at startup)
+- `[agent]` One-time explanation toast about local provider credentials when agents first read them

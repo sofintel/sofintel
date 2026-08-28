@@ -776,24 +776,19 @@ fn setup_or_teardown_ai_panel<P: Panel>(
     ) -> Task<anyhow::Result<Entity<P>>>
     + 'static,
 ) -> Task<anyhow::Result<()>> {
+    let _ = load_panel;
     let disable_ai = SettingsStore::global(cx)
         .get::<DisableAiSettings>(None)
         .disable_ai
         || cfg!(test);
     let existing_panel = workspace.panel::<P>(cx);
     match (disable_ai, existing_panel) {
-        (false, None) => cx.spawn_in(window, async move |workspace, cx| {
-            let panel = load_panel(workspace.clone(), cx.clone()).await?;
-            workspace.update_in(cx, |workspace, window, cx| {
-                let disable_ai = SettingsStore::global(cx)
-                    .get::<DisableAiSettings>(None)
-                    .disable_ai;
-                let have_panel = workspace.panel::<P>(cx).is_some();
-                if !disable_ai && !have_panel {
-                    workspace.add_panel(panel, window, cx);
-                }
-            })
-        }),
+        // Do NOT eagerly load the agent panel at startup. Loading it constructs the
+        // model selector, which calls `authenticate_all_providers` and reads every
+        // provider's credentials from the system keychain. That causes a flood of
+        // "access keychain" prompts on launch. Instead, it is created lazily the
+        // first time the user opens the Agent area.
+        (false, None) => Task::ready(Ok(())),
         (true, Some(existing_panel)) => {
             workspace.remove_panel::<P>(&existing_panel, window, cx);
             Task::ready(Ok(()))

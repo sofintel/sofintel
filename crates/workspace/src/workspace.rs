@@ -390,10 +390,8 @@ impl WorkspaceSidebarHost {
     fn active_section_view(&self, cx: &App) -> Option<AnyView> {
         match self.active_section {
             WorkspaceSidebarSection::Project => self
-                .workspace_sidebar_view
-                .clone()
-                .or_else(|| self.section_view(WorkspaceSidebarSection::Project).cloned())
-                .or_else(|| self.panel_view("ProjectPanel", cx)),
+                .panel_view("ProjectPanel", cx)
+                .or_else(|| self.section_view(WorkspaceSidebarSection::Project).cloned()),
             WorkspaceSidebarSection::Outline => self.panel_view("OutlinePanel", cx),
             WorkspaceSidebarSection::Git => self
                 .section_view(WorkspaceSidebarSection::Git)

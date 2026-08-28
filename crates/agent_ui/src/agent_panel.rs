@@ -1213,6 +1213,30 @@ impl AgentPanel {
 
         // Initial sync of agent servers from extensions
         panel.sync_agent_servers_from_extensions(cx);
+
+        // One-time notice about local provider credentials. The agent panel is now
+        // loaded lazily (only when the user opens the Agent area), so this is the
+        // moment provider credentials may be read from the system keychain.
+        if !ProviderCredentialsOnboarding::dismissed(cx) {
+            ProviderCredentialsOnboarding::set_dismissed(true, cx);
+            let workspace = panel.workspace.clone();
+            cx.defer(move |cx| {
+                if let Some(workspace) = workspace.upgrade() {
+                    workspace.update(cx, |workspace, cx| {
+                        struct ProviderCredsToast;
+                        workspace.show_toast(
+                            workspace::Toast::new(
+                                workspace::notifications::NotificationId::unique::<ProviderCredsToast>(),
+                                "Sofintel reads your locally configured model API keys (Zed, Claude Code, OpenCode, DeepSeek) only so the coding agent can work in this IDE. They stay on your machine — Sofintel never sends them anywhere.",
+                            )
+                            .autohide(),
+                            cx,
+                        );
+                    });
+                }
+            });
+        }
+
         panel
     }
 
@@ -1227,6 +1251,8 @@ impl AgentPanel {
             .is_some_and(|panel| panel.read(cx).enabled(cx))
         {
             workspace.toggle_panel_focus::<Self>(window, cx);
+        } else {
+            Self::ensure_loaded(workspace, window, cx);
         }
     }
 
@@ -1243,7 +1269,32 @@ impl AgentPanel {
             if !workspace.toggle_panel_focus::<Self>(window, cx) {
                 workspace.close_panel::<Self>(window, cx);
             }
+        } else {
+            Self::ensure_loaded(workspace, window, cx);
         }
+    }
+
+    /// Lazily load the agent panel. The panel is deliberately NOT loaded at app
+    /// startup so that provider credentials are only read (and any keychain
+    /// prompt shown) the first time the user actually opens the Agent area.
+    fn ensure_loaded(
+        workspace: &mut Workspace,
+        window: &mut Window,
+        cx: &mut Context<Workspace>,
+    ) {
+        if workspace.panel::<Self>(cx).is_some() {
+            return;
+        }
+        cx.spawn_in(window, async move |workspace_handle, cx| {
+            let panel = Self::load(workspace_handle.clone(), cx.clone()).await?;
+            workspace_handle.update_in(cx, |workspace, window, cx| {
+                if workspace.panel::<Self>(cx).is_none() {
+                    workspace.add_panel(panel, window, cx);
+                    workspace.toggle_panel_focus::<Self>(window, cx);
+                }
+            })
+        })
+        .detach();
     }
 
     pub(crate) fn prompt_store(&self) -> &Option<Entity<PromptStore>> {
@@ -4680,6 +4731,15 @@ struct OnboardingUpsell;
 
 impl Dismissable for OnboardingUpsell {
     const KEY: &'static str = "dismissed-trial-upsell";
+}
+
+/// One-time notice explaining that the Agent area reads locally configured provider
+/// credentials (API keys) so the coding agent can work, and that Sofintel never sends
+/// them anywhere. Shown when the agent panel is first opened.
+struct ProviderCredentialsOnboarding;
+
+impl Dismissable for ProviderCredentialsOnboarding {
+    const KEY: &'static str = "seen-provider-credentials-onboarding";
 }
 
 struct AgentLayoutOnboarding;
