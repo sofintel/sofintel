@@ -115,8 +115,15 @@ jobs:
           mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources" "$app/Contents/Frameworks"
           cp "$root/zed" "$app/Contents/MacOS/Sofintel"
           cp crates/zed/resources/Sofintel.icns "$app/Contents/Resources/Sofintel.icns"
-          framework=$(find "$root/build" -path "*/cef_macos_${{ matrix.arch }}/Chromium Embedded Framework.framework" -type d -print -quit)
-          test -n "$framework"
+          # When CEF_PATH is set (CI pre-fetches CEF), the framework lives there
+          # and is NOT extracted into target/<target>/build. Otherwise fall back
+          # to the build directory where cef-dll-sys extracted it during cargo build.
+          if [[ -n "${CEF_PATH:-}" ]]; then
+            framework="$CEF_PATH/Chromium Embedded Framework.framework"
+          else
+            framework=$(find "$root/build" -path "*/cef_macos_${{ matrix.arch }}/Chromium Embedded Framework.framework" -type d -print -quit)
+          fi
+          test -n "$framework" && test -d "$framework"
           ditto "$framework" "$app/Contents/Frameworks/Chromium Embedded Framework.framework"
           helpers=("Helper" "Helper (GPU)" "Helper (Renderer)" "Helper (Plugin)" "Helper (Alerts)")
           for helper_suffix in "${helpers[@]}"; do
