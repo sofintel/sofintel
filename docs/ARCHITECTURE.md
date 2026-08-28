@@ -8,6 +8,17 @@ fast and modify them safely.
 > Use `cargo check --locked --package <crate>` to type-check a single crate. Use
 > `./script/clippy` instead of `cargo clippy`.
 
+## GPUI
+
+Sofintel is built on **GPUI**, the GPU-accelerated UI framework from Zed. It uses the Sofintel
+fork:
+
+- Repo: **https://github.com/sofintel/sofintel-gpui**
+- Docs: **https://docs.rs/gpui/** (also https://docs.rs/gpui/0.2.2/gpui/)
+
+The workspace currently pins the GPUI git dependency (see `Cargo.toml`: `gpui`, `gpui_macros`,
+`gpui_platform`, `gpui_tokio`, `gpui_util`, `collections`, `http_client`).
+
 ## The two big ideas
 
 1. **The workspace is Zed's workspace.** Almost all crates are upstream Zed crates, unmodified
