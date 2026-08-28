@@ -1,4 +1,5 @@
 mod app_menus;
+mod about_modal;
 mod document_status_button;
 pub mod edit_prediction_registry;
 #[cfg(target_os = "macos")]
@@ -1351,44 +1352,26 @@ fn initialize_pane(
     });
 }
 
-fn about(_: &mut Workspace, window: &mut Window, cx: &mut Context<Workspace>) {
-    use std::fmt::Write;
+fn about(workspace: &mut Workspace, window: &mut Window, cx: &mut Context<Workspace>) {
     let release_channel = ReleaseChannel::global(cx).display_name();
     let full_version = AppVersion::global(cx);
     let version = env!("CARGO_PKG_VERSION");
-    let debug = if cfg!(debug_assertions) {
-        "(debug)"
-    } else {
-        ""
-    };
-    let message = format!("{release_channel} {version} {debug}");
+    let debug = if cfg!(debug_assertions) { "(debug)" } else { "" };
+    let title = SharedString::from(format!("{release_channel} {version} {debug}"));
 
-    let mut detail = AppCommitSha::try_global(cx)
-        .map(|sha| sha.full())
+    let sha = AppCommitSha::try_global(cx)
+        .map(|sha| sha.short())
         .unwrap_or_default();
-    if !detail.is_empty() {
-        detail.push('\n');
-    }
-    _ = write!(&mut detail, "\n{full_version}");
 
-    let detail = Some(detail);
-
-    let prompt = window.prompt(
-        PromptLevel::Info,
-        &message,
-        detail.as_deref(),
-        &["Copy", "OK"],
-        cx,
-    );
-    cx.spawn(async move |_, cx| {
-        if let Ok(0) = prompt.await {
-            let content = format!("{}\n{}", message, detail.as_deref().unwrap_or(""));
-            cx.update(|cx| {
-                cx.write_to_clipboard(gpui::ClipboardItem::new_string(content));
-            });
-        }
-    })
-    .detach();
+    workspace.toggle_modal(window, cx, |window, cx| {
+        about_modal::AboutSofintelModal::new(
+            title,
+            SharedString::from(format!("{full_version}")),
+            SharedString::from(sha),
+            window,
+            cx,
+        )
+    });
 }
 
 #[cfg(not(target_os = "windows"))]

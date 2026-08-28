@@ -52,3 +52,6 @@ Example:
 - `[workspace]` Restore classic file tree in the Project/File sidebar (real ProjectPanel instead of threads navigator)
 - `[agent]` Defer agent panel load to first use (no credential keychain prompts at startup)
 - `[agent]` One-time explanation toast about local provider credentials when agents first read them
+
+- `[brand]` Bump to v1.0.4; app menu / About dialog renamed to Sofintel with GitHub + website links
+- `[brand]` Release channel display name, Windows product metadata renamed to Sofintel

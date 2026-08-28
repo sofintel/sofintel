@@ -1,5 +1,5 @@
 $ErrorActionPreference = 'Stop'
-$version = if ($env:SOFINTEL_VERSION) { $env:SOFINTEL_VERSION } else { '1.0.3' }
+$version = if ($env:SOFINTEL_VERSION) { $env:SOFINTEL_VERSION } else { '1.0.4' }
 
 cargo build --features mimalloc --package zed --package cli
 New-Item -ItemType Directory -Force -Path package, dist | Out-Null

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-version="${SOFINTEL_VERSION:-1.0.3}"
+version="${SOFINTEL_VERSION:-1.0.4}"
 cargo build --release --features mimalloc --package zed --package cli
 package="sofintel_${version}_amd64"
 rm -rf "$package"

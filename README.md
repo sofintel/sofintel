@@ -12,11 +12,11 @@ Grab the latest builds from [GitHub Releases](https://github.com/sofintel/sofint
 
 | Platform | Architecture | Download |
 | --- | --- | --- |
-| **macOS** | Apple Silicon (arm64) | [Sofintel-1.0.3-macos-arm64.zip](https://github.com/sofintel/sofintel/releases/download/v1.0.3/Sofintel-1.0.3-macos-arm64.zip) |
-| **macOS** | Intel (x86_64) | [Sofintel-1.0.3-macos-x86_64.zip](https://github.com/sofintel/sofintel/releases/download/v1.0.3/Sofintel-1.0.3-macos-x86_64.zip) |
-| **Linux** | amd64 | [Sofintel-1.0.3-linux-amd64.deb](https://github.com/sofintel/sofintel/releases/download/v1.0.3/Sofintel-1.0.3-linux-amd64.deb) |
-| **Linux** | arm64 | [Sofintel-1.0.3-linux-arm64.deb](https://github.com/sofintel/sofintel/releases/download/v1.0.3/Sofintel-1.0.3-linux-arm64.deb) |
-| **Windows** | x64 | [Sofintel-1.0.3-windows-x86_64.zip](https://github.com/sofintel/sofintel/releases/download/v1.0.3/Sofintel-1.0.3-windows-x86_64.zip) |
+| **macOS** | Apple Silicon (arm64) | [Sofintel-1.0.4-macos-arm64.zip](https://github.com/sofintel/sofintel/releases/download/v1.0.4/Sofintel-1.0.4-macos-arm64.zip) |
+| **macOS** | Intel (x86_64) | [Sofintel-1.0.4-macos-x86_64.zip](https://github.com/sofintel/sofintel/releases/download/v1.0.4/Sofintel-1.0.4-macos-x86_64.zip) |
+| **Linux** | amd64 | [Sofintel-1.0.4-linux-amd64.deb](https://github.com/sofintel/sofintel/releases/download/v1.0.4/Sofintel-1.0.4-linux-amd64.deb) |
+| **Linux** | arm64 | [Sofintel-1.0.4-linux-arm64.deb](https://github.com/sofintel/sofintel/releases/download/v1.0.4/Sofintel-1.0.4-linux-arm64.deb) |
+| **Windows** | x64 | [Sofintel-1.0.4-windows-x86_64.zip](https://github.com/sofintel/sofintel/releases/download/v1.0.4/Sofintel-1.0.4-windows-x86_64.zip) |
 
 ## Features
 

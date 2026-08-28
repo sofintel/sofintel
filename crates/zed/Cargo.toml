@@ -2,7 +2,7 @@
 description = "Sofintel - A high-performance code editor"
 edition.workspace = true
 name = "zed"
-version = "1.0.3"
+version = "1.0.4"
 publish.workspace = true
 license = "GPL-3.0-or-later"
 authors = ["Sofintel HQ <team@sofintel.dev>"]
