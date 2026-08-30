@@ -11,18 +11,18 @@ description: "Guide to building Sofintel for Windows development."
 
 Clone the [Sofintel repository](https://github.com/musichen/sofintel).
 
-If you are developing Sofintel together with a local GPUI checkout, clone [Glass-HQ/gpui](https://github.com/Glass-HQ/gpui) as a sibling repository:
+If you are developing Sofintel together with a local GPUI checkout, clone [sofintel-gpui](https://github.com/sofintel/sofintel-gpui) as a sibling repository:
 
 ```powershell
 git clone https://github.com/musichen/sofintel.git
-git clone https://github.com/Glass-HQ/gpui.git
+git clone https://github.com/sofintel/sofintel-gpui.git
 ```
 
 This yields:
 
 ```text
-C:\src\musichen\sofintel
-C:\src\Glass-HQ\gpui
+C:\src\sofintel\sofintel
+C:\src\sofintel-gpui
 ```
 
 ## Dependencies
@@ -99,7 +99,7 @@ Then open a new shell and re-run the build.
 
 If you are using the local GPUI helper or the bootstrap script picks up a sibling checkout automatically, Sofintel will resolve GPUI crates from `..\gpui`. In that case you must either:
 
-- clone [Glass-HQ/gpui](https://github.com/Glass-HQ/gpui) next to the Sofintel checkout, or
+- clone [sofintel-gpui](https://github.com/sofintel/sofintel-gpui) next to the Sofintel checkout, or
 - move back to the pinned GPUI dependency flow once the local GPUI changes are no longer needed
 
 ### `RUSTFLAGS` breaks builds
